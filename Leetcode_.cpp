@@ -92,3 +92,37 @@ public:
         return false;
     }
 };
+
+// 342.Power of 4
+
+class Solution {
+public:
+    bool isPowerOfFour(int n) {
+        for (int i=0;i<=15;i++){
+            int a=pow(4,i);
+            if (a==n){
+                return true;
+            }
+        }
+        return false;
+    }
+};
+
+// 326.Power of 3
+
+class Solution {
+public:
+    bool isPowerOfThree(int n) {
+        if (n==1){
+            return true;
+        }
+        int a=1;
+        while(a<=INT_MAX/3){
+            a =a*3;
+            if (n==a){
+                return true;
+            }
+        }
+        return false;
+    }
+};
