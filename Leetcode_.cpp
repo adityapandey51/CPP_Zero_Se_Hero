@@ -126,3 +126,51 @@ public:
         return false;
     }
 };
+
+
+// Duplicate in an array
+
+int duplicate(int arr[],int size){
+    int ans=0;
+    for (int i=0;i<size;i++){
+        ans=ans^arr[i];
+    }
+    for (int j=1;j<size;j++){
+        ans=ans^j;
+    }
+    return ans;
+}
+
+// 1207.Given an array of integers arr, return true if the 
+// number of occurrences of each value in the array is unique or false otherwise.
+
+class Solution {
+public:
+    bool uniqueOccurrences(vector<int>& arr) {
+        vector<int> ans;
+        int size=arr.size();
+        int i=0;
+        sort(arr.begin(),arr.end());
+        while(i<size){
+            int count=1;
+            for(int j=i+1;j<size;j++){
+                if(arr[i]==arr[j]){
+                    count++;
+                }
+                else
+                {
+                    break;}
+            }
+            ans.push_back(count);
+            i=i+count;
+        }
+        sort(ans.begin(),ans.end());
+        size=ans.size();
+        for(int i=0;i<size-1;i++){
+            if(ans[i]==ans[i+1]){
+                return false;
+            }
+        }
+        return true;
+    }
+};
