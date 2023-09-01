@@ -251,3 +251,155 @@ public:
 };
 
 
+// PROBLEM 69. SQRT(X)
+
+class Solution {
+public:
+    int mySqrt(int x) {
+        int s=0;
+        int e=x;
+        long long int m=s+((e-s)/2);
+        int ans;
+        while(s<=e){
+            long long int sqr=m*m;
+            if (sqr>x){
+                e=m-1;
+            }
+            else if(sqr==x){
+                return m;
+            }
+            else{
+               ans=m;
+               s=m+1;
+            }
+            m=s+((e-s)/2);
+        }
+        return ans;
+    }
+};
+
+
+double more_precise_sqr_root(int x,int n){
+    int tempsol=mysqrt(x);
+    double factor=1; 
+    double ans=tempsol;
+    for (int i=0; i<n;i++){
+        factor=factor/10;
+        for (double j=0;j*j<x;j=j+factor){
+            ans=j;
+        }
+    }
+    return ans;
+
+
+}
+
+// PROBLEM 1:Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
+
+// You may assume that each input would have exactly one solution, and you may not use the same element twice.
+
+// You can return the answer in any order.
+
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        vector<int> ans;
+        for(int i=0;i<nums.size();i++){
+            for (int j=i+1;j<nums.size();j++){
+                 if(nums[i]+nums[j]==target){
+                     ans.push_back(i);
+                     ans.push_back(j);
+                     break;
+                 }
+            }
+        }
+        return ans;
+    }
+};
+
+
+
+// 88.You are given two integer arrays nums1 and nums2, sorted in non-decreasing order,
+// and two integers m and n, representing the number of elements in nums1 and nums2 respectively.
+
+// Merge nums1 and nums2 into a single array sorted in non-decreasing order.
+
+// The final sorted array should not be returned by the function,
+// but instead be stored inside the array nums1. To accommodate this,
+// nums1 has a length of m + n, where the first m elements denote the elements that should be merged,
+// and the last n elements are set to 0 and should be ignored. nums2 has a length of n.
+
+class Solution {
+public:
+    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+        for(int i=m;i<m+n;i++){
+            nums1[i]=nums2[i-m];
+        }
+        sort(nums1.begin(),nums1.end());
+    }
+};
+
+
+// 1752.Given an array nums, return true if the array was originally sorted in non-decreasing order,
+// then rotated some number of positions (including zero). Otherwise, return false.
+
+// There may be duplicates in the original array.
+
+// Note: An array A rotated by x positions results in an array B of the same length
+// such that A[i] == B[(i+x) % A.length], where % is the modulo operation.
+
+class Solution {
+public:
+    bool check(vector<int>& nums) {
+        int count=0;
+        for (int i=1;i<nums.size();i++){
+            if (nums[(i-1)]>nums[i]){
+                count++;
+            }
+        }
+        if(nums[nums.size()-1]>nums[0]){
+           count++;
+        }
+        return count<=1;
+    }
+};
+
+
+// 189.Given an integer array nums, rotate the array to the right by k steps, where k is non-negative.
+
+lass Solution {
+public:
+    void rotate(vector<int>& nums, int k) {
+        vector<int> temp(nums.size());
+        for (int i=0;i<nums.size();i++){
+            temp[(i+k)%nums.size()]=nums[i];
+        }
+        nums=temp;
+    }
+};
+
+
+// 283.Given an integer array nums, move all 0's to the end of it while maintaining
+// the relative order of the non-zero elements.
+
+// Note that you must do this in-place without making a copy of the array.
+
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+        int s=0;
+        for (int j=0;j<nums.size();j++){
+            if (nums[j]!=0){
+                swap(nums[j],nums[s]);
+                s++;
+            }
+        }
+    }
+};
+
+ 
+ 
+
+ 
+
+

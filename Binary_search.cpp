@@ -98,3 +98,42 @@ int last_index(int arr[];int size;int element){
     }
     return ans;
 }
+
+
+// PIVOT IN AN ARRAY
+
+int main(int arr[], int size){
+    int s=0;
+    int e=size-1;
+    int mid=s+((e-s)/2);
+    while(s<e){
+         if (m>=arr[0]){
+            s=m+1;
+         }
+         else{
+            e=m;
+         }
+         m=s+((e-s)/2);
+    }
+    return arr[m];
+}
+
+
+
+// SEARCH AN ELEMENT IN SORTED AND ROTATED ARRAY
+
+
+bool search_the element(int arr[], int size,int element){
+    int s=0;
+    int e=size-1;
+    // FIND THE PIVOT
+    // PIVOT(int arr[],int size)
+    if (element >=arr[pivot] && k<=arr[e]){
+        s=pivot;
+        binary_search(int arr[],s,e,element)
+    }
+    else{
+        e=pivot-1;
+        binary_search(int arr[],s,e,element)
+    }
+}
