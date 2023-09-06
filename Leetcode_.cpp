@@ -397,9 +397,193 @@ public:
     }
 };
 
+
+
+// 344.Write a function that reverses a string. The input string is given as an array of characters s.
+
+// You must do this by modifying the input array in-place with O(1) extra memory.
+
+class Solution {
+public:
+    void reverseString(vector<char>& s) {
+        int st=0;
+        int e=s.size()-1;
+        while(st<=e){
+            swap(s[st],s[e]);
+            st++;
+            e--;
+        }
+    }
+};
+
+// REPLACE SPACES
+
+#include <bits/stdc++.h> 
+string replaceSpaces(string &str){
+	string temp="";
+	for (int i=0;i<str.length();i++){
+		if(str[i]==' ' || str[i]=='\0'){
+           temp.push_back('@');
+		   temp.push_back('4');
+		   temp.push_back('0');
+		}
+		else{
+			temp.push_back(str[i]);
+		}
+	}
+	return temp;
+}
+
+// 1910:
+// Given two strings s and part, perform the following operation on s until all occurrences of the substring part are removed:
+
+// Find the leftmost occurrence of the substring part and remove it from s.
+// Return s after removing all occurrences of part.
+
+// A substring is a contiguous sequence of characters in a string.
+
+class Solution {
+public:
+    string removeOccurrences(string s, string part) {
+        while(s.length()!=0 && s.find(part)<s.length()){
+            s.erase(s.find(part),part.size());
+        }
+        return s;
+    }
+};
+
+// 567:
+// PERMUTATIONS OF A STRING
+// Given two strings s1 and s2, return true if s2 contains a permutation of s1, or false otherwise.
+
+// In other words, return true if one of s1's permutations is the substring of s2.
+
+class Solution {
+private:
+    bool check_equal(int count1[26],int count2[26]){
+        for (int i=0;i<26;i++){
+            if (count1[i]!=count2[i]){
+                return 0;
+            }
+        }
+        return 1;
+    }
+public:
+    bool checkInclusion(string s1, string s2) {
+        int count1[26]={0};
+        for(int i=0;i<s1.length();i++){
+           int index=s1[i]-'a';
+           count1[index]++;
+        }
+
+        int i=0;
+        int window_length=s1.length();
+        int count2[26]={0};
+        while(i<window_length && i<s2.length()){
+            int index=s2[i]-'a';
+            count2[index]++;
+            i++;
+        }
+
+        if(check_equal(count1,count2)){
+            return 1;
+        }
+        while(i<s2.length()){
+           char newchar=s2[i];
+           int index=newchar-'a';
+           count2[index]++;
+
+           char oldchar=s2[i-window_length];
+           index=oldchar-'a';
+           count2[index]--;
+           i++;
+           if(check_equal(count1,count2)){
+               return 1;
+           }
+        }
+        return 0;
+    }
+};
+
+
+// 1047:remove all adjacent duplicate elements
+
+// You are given a string s consisting of lowercase English letters. A duplicate removal consists of choosing two adjacent and equal letters and removing them.
+
+// We repeatedly make duplicate removals on s until we no longer can.
+
+// Return the final string after all such duplicate removals have been made. It can be proven that the answer is unique. 
  
- 
+//  tle problem
+ class Solution {
+public:
+    string removeDuplicates(string s) {
+        int i=0;
+        while(s.length()>=2 && i<s.length() ){
+           if (s[i]==s[i+1]){
+               s.erase(i,2);
+               i=0;
+           }else{
+               i++;
+           }
+        }
+        return s;
+    }
+};
+
+
+class Solution {
+public:
+    string removeDuplicates(string s) {
+        vector<char> a;
+        for (int i=0;i<s.length();i++){
+            if (a.size()==0){
+                a.push_back(s[i]);
+            }
+            else{
+                if(a.back()==s[i]){
+                    a.pop_back();
+                }
+                else{
+                    a.push_back(s[i]);
+                }
+            }
+        }
+        string temp="";
+        for (int i=0;i<a.size();i++){
+            temp.push_back(a[i]);
+        }
+        return temp;
+    }
+};
+
 
  
+// 443.string compression
+
+class Solution {
+public:
+    int compress(vector<char>& chars) {
+        int i=0;
+        int ansIndex=0;
+        int n=chars.size();
+        while(i<n){
+            int j=i+1;
+            while(j<n && chars[i]==chars[j]){
+                j++;
+            }
+            int count=j-i;
+            chars[ansIndex++]=chars[i];
+            if (count>1){
+                string cnt=to_string(count);
+                for(char ch:cnt){
+                    chars[ansIndex++]=ch;
+                }
+            }
+            i=j;
+        }
+        return ansIndex;
+    }
+};
 
 
