@@ -586,4 +586,237 @@ public:
     }
 };
 
+// 54.spiralwave
+
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        int row=matrix.size();
+        int col=matrix[0].size();
+
+        int startingrow=0;
+        int endingrow=row-1;
+        int startingcol=0;
+        int endingcol=col-1;
+
+        int count=0;
+        int total=row*col;
+        vector<int> ans;
+        while(count<total){
+            for (int i=startingcol;(count<total)&&(i<=endingcol);i++){
+                ans.push_back(matrix[startingrow][i]);
+                count++;
+            }
+            startingrow++;
+            for (int i=startingrow;(count<total)&&(i<=endingrow);i++){
+                ans.push_back(matrix[i][endingcol]);
+                count++;
+            }
+            endingcol--;
+            for (int i=endingcol;(count<total)&&(i>=startingcol);i--){
+                ans.push_back(matrix[endingrow][i]);
+                count++;
+            }
+            endingrow--;
+            for (int i=endingrow;(count<total)&&(i>=startingrow);i--){
+                ans.push_back(matrix[i][startingcol]);
+                count++;
+            }
+            startingcol++;
+        }        
+       return ans;
+    }
+};
+
+// WAVE PATTERN
+
+#include <bits/stdc++.h> 
+vector<int> wavePrint(vector<vector<int>> arr, int nRows, int mCols)
+{
+    int i=0;
+    vector<int> ans;
+    while(i<mCols){
+        int j;
+        if (i%2==0){
+           j=0;
+        }else{
+           j=nRows-1;
+        }
+       while(j<nRows && j>=0){
+         ans.push_back(arr[j][i]);
+          if (i%2==0){
+             j++;
+          }else{
+            j--;
+          }
+       }
+       i++;
+   }
+   return ans;
+}
+
+
+48.Rotate image
+
+You are given an n x n 2D matrix representing an image, rotate the image by 90 degrees (clockwise).
+
+You have to rotate the image in-place, which means you have to modify the input 2D matrix directly. DO NOT allocate another 2D matrix and do the rotation.
+
+ class Solution {
+public:
+    void rotate(vector<vector<int>>& matrix) {
+      for (int i=0;i<matrix.size()-1;i++){
+          for (int j=i+1;j<matrix.size();j++){
+             swap(matrix[i][j],matrix[j][i]);
+          }
+      }
+      for (int i=0;i<matrix.size();i++){
+          int s=0;
+          int e=matrix.size()-1;
+          while(s<=e){
+              swap(matrix[i][s],matrix[i][e]);
+              s++;
+              e--;
+          }
+      }
+    }
+};
+
+// 74.SEARCH IN A MATRIX
+// You are given an m x n integer matrix matrix with the following two properties:
+
+// Each row is sorted in non-decreasing order.
+// The first integer of each row is greater than the last integer of the previous row.
+// Given an integer target, return true if target is in matrix or false otherwise.
+
+// You must write a solution in O(log(m * n)) time complexity.
+
+class Solution {
+public:
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+       int row=matrix.size();
+       int col=matrix[0].size();
+
+       int s=0;
+       int e=row*col-1;
+       int mid=s+((e-s)/2);
+       while(s<=e){
+           int element=matrix[mid/col][mid%col];
+           if(target==element){
+               return true;
+           }else if(target>element){
+               s=mid+1;
+           }else{
+               e=mid-1;
+           }
+            mid=s+((e-s)/2);
+       }
+       return false;
+    }
+};
+
+// 240.SEARCH IN A MATRIX II
+// Write an efficient algorithm that searches for a value target in an m x n integer matrix matrix. This matrix has the following properties:
+
+// Integers in each row are sorted in ascending from left to right.
+// Integers in each column are sorted in ascending from top to bottom.
+ 
+
+class Solution {
+public:
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        int row=matrix.size();
+        int col=matrix[0].size();
+        int r=0;
+        int c=col-1;
+        while(r<row && c>=0){
+            if(matrix[r][c]==target) return true;
+            matrix[r][c]<target?r++:c--;
+        }
+        return false;
+    }
+};
+
+// 204:Given an integer n, return the number of prime numbers that are strictly less than n.{COUNT PRIMES}
+// TIME COMPLEXITY:O(Nlog(log(n))) sum of harmonic progression.
+// SIEVE OF ERATOSTHENES
+class Solution {
+public:
+    int countPrimes(int n) {
+        vector<bool> prime(n+1,true);
+        prime[0]=prime[1]=false;
+        int count=0;
+        for (int i=2;i<n;i++){
+            if (prime[i]){
+                count++;
+                for (int j=2*i;j<n;j=j+i){
+                    prime[j]=false;
+                }
+            }
+        }
+        return count;
+    }
+};
+
+
+50:Pow(x,n)
+
+class Solution {
+public:
+    double myPow(double x, int n) {
+        // double s=x;
+        // int absin=abs(n);
+        // for (int i=0;i<absin-1;i++){
+        //     x=x*s;
+        // }
+
+        // if (n<0) {
+        //    return 1/x;
+        // }
+        // else if(n==0) return 1.0;
+        return pow(x,n);
+    }
+};
+
+class Solution {
+public:
+    double myPow(double x, int n) {
+        long long int k=abs(n);
+        double ans=1.0;
+        if(n==0) return 1.0;
+        if(x==1.0) return x;
+        while(k>0)
+        {
+            // ans=ans*x;
+            // k--;
+            if(k%2){ ans=ans*x; k--;}
+            else{ x=x*x; k=k/2;}
+        }
+        if(n<0)
+        {
+            double p=(double)(1.0)/(double)(ans);
+            return p;
+        }
+        
+        return ans;    
+    }
+};
+
+// 41:first missing positive
+
+class Solution {
+public:
+    int firstMissingPositive(vector<int>& A) {
+        for(int i = 0; i < A.size(); i++)
+            while(A[i] > 0 && A[i] <= A.size() && A[A[i] - 1] != A[i])
+                swap(A[i], A[A[i] - 1]);
+        
+        for(int i = 0; i < A.size(); i++)
+            if(A[i] != i + 1)
+                return i + 1;
+        
+        return A.size() + 1;
+    }
+};
+
 
