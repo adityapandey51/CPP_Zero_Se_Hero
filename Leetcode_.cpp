@@ -819,4 +819,47 @@ public:
     }
 };
 
+// 35:SEARCH INSERT POSITION
+// Given a sorted array of distinct integers and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.
+
+// You must write an algorithm with O(log n) runtime complexity.
+
+class Solution {
+public:
+    int searchInsert(vector<int>& nums, int target) {
+        int s=0;
+        int e=nums.size()-1;
+        int mid=s+((e-s)/2);
+        while(s<=e){
+            if (nums[mid]==target){
+                return mid;
+            }
+            else if(nums[mid]<target){
+                s=mid+1;
+                }
+            else{
+                e=mid-1;
+            }
+            mid=s+((e-s)/2);
+        }
+        return mid;
+    }
+};
+
+// 28:FIND THE INDEX OF FIRST OCCURENCE IN A STRING
+// Given two strings needle and haystack,
+// return the index of the first occurrence of needle in haystack,
+// or -1 if needle is not part of haystack.
+
+class Solution {
+public:
+    int strStr(string haystack, string needle) {
+        int ans=haystack.find(needle);
+        if(ans>=0 && ans<haystack.length()){
+            return ans;
+        }
+        return -1;
+    }
+};
+
 
