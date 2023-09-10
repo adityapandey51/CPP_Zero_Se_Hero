@@ -107,17 +107,16 @@ int main(int arr[], int size){
     int e=size-1;
     int mid=s+((e-s)/2);
     while(s<e){
-         if (m>=arr[0]){
-            s=m+1;
+         if (arr[mid]>=arr[0]){
+            s=mid+1;
          }
          else{
-            e=m;
+            e=mid;
          }
-         m=s+((e-s)/2);
+         mid=s+((e-s)/2);
     }
-    return arr[m];
+    return arr[mid];
 }
-
 
 
 // SEARCH AN ELEMENT IN SORTED AND ROTATED ARRAY

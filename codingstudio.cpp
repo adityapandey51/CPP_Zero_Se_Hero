@@ -44,3 +44,53 @@ int findLargestMinDistance(vector<int> &boards, int k)
     }
     return ans;
 }
+
+// aggressive cows
+
+bool ispossible(vector<int>stalls,int mid,int k){
+    int cowcount=1;
+    int pos1=stalls[0];
+    for(int i=0;i<stalls.size();i++){
+        if(stalls[i]-pos1>=mid){
+            cowcount++;
+            if(cowcount==k){
+                return true;
+            }
+            pos1=stalls[i];
+        }
+    }
+    return false;
+}
+
+int aggressiveCows(vector<int> &stalls, int k)
+{
+    sort(stalls.begin(),stalls.end());
+    int s=0;
+    int min=stalls[0];
+    for (int i=1;i<stalls.size();i++){
+        if (stalls[i]<min){
+            min=stalls[i];
+        }
+    }
+    int max=stalls[0];
+     for (int i=1;i<stalls.size();i++){
+        if (stalls[i]>min){
+            max=stalls[i];
+        }
+    }
+    int e=max-min;
+    int mid=s+((e-s)/2);
+    int ans;
+
+    while(s<=e){
+        if(ispossible(stalls,mid,k)){
+            ans=mid;
+            s=mid+1;
+        }
+        else{
+            e=mid-1;
+        }
+        mid=s+((e-s)/2);
+    }
+    return ans;
+}

@@ -367,7 +367,7 @@ public:
 
 // 189.Given an integer array nums, rotate the array to the right by k steps, where k is non-negative.
 
-lass Solution {
+class Solution {
 public:
     void rotate(vector<int>& nums, int k) {
         vector<int> temp(nums.size());
@@ -656,11 +656,11 @@ vector<int> wavePrint(vector<vector<int>> arr, int nRows, int mCols)
 }
 
 
-48.Rotate image
+// 48.Rotate image
 
-You are given an n x n 2D matrix representing an image, rotate the image by 90 degrees (clockwise).
+// You are given an n x n 2D matrix representing an image, rotate the image by 90 degrees (clockwise).
 
-You have to rotate the image in-place, which means you have to modify the input 2D matrix directly. DO NOT allocate another 2D matrix and do the rotation.
+// You have to rotate the image in-place, which means you have to modify the input 2D matrix directly. DO NOT allocate another 2D matrix and do the rotation.
 
  class Solution {
 public:
@@ -862,4 +862,148 @@ public:
     }
 };
 
+// 27.REMOVE ELEMENT
+// Given an integer array nums and an integer val, remove all occurrences of val in nums in-place. The order of the elements may be changed. Then return the number of elements in nums which are not equal to val.
+
+// Consider the number of elements in nums which are not equal to val be k, to get accepted, you need to do the following things:
+
+// Change the array nums such that the first k elements of nums contain the elements which are not equal to val. The remaining elements of nums are not important as well as the size of nums.
+// Return k.
+
+class Solution {
+public:
+    int removeElement(vector<int>& nums, int val) {
+        int s=0;
+        int e=nums.size()-1;
+        while(s<=e){
+            if(nums[s]==val && nums[e]!=val){
+                swap(nums[s],nums[e]);
+                s++;
+                e--;
+            }else if(nums[s]!=val && nums[e]==val){
+                s++;
+                e--;
+            }else if(nums[s]!=val && nums[e]!=val){
+                s++;
+            }else{
+                e--;
+            }
+        }
+        int k;
+        for (int i=0;i<nums.size();i++){
+            if(nums[i]==val){
+                k=i;
+                break;
+            }
+        }
+        nums.erase(nums.begin()+k,nums.end());
+        return nums.size();
+    }
+};
+
+// 2108:FIND FIRST PALINDROMIC IN AN ARRAY
+// Given an array of strings words, return the first palindromic string in the array.
+//  If there is no such string, return an empty string "".
+// A string is palindromic if it reads the same forward and backward.
+
+class Solution {
+private:
+    bool isPalindromic(string word){
+        string temp="";
+        for (int i=word.length()-1;i>=0;i--){
+            temp.push_back(word[i]);
+        }
+        if(temp==word){
+            return true;
+        }
+        return false;
+    }
+public:
+    string firstPalindrome(vector<string>& words) {
+        for (int i=0;i<words.size();i++){
+            if(isPalindromic(words[i])){
+                return words[i];
+            }
+        }
+        return "";
+    }
+};
+
+// 2nd method:
+class Solution {
+private:
+    bool isPalindromic(string word){
+        int s=0;
+        int e=word.length()-1;
+       while(s<=e){
+           if(word[s]!=word[e]){
+               return false;
+           }
+           s++;
+           e--;
+       }
+       return true;
+    }
+public:
+    string firstPalindrome(vector<string>& words) {
+        for (int i=0;i<words.size();i++){
+            if(isPalindromic(words[i])){
+                return words[i];
+            }
+        }
+        return "";
+    }
+};
+
+// 33:SEARCH IN ROTATED SORTED ARRAY
+
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {
+        int i=0;
+        int j=nums.size()-1;
+        while(i<=j){
+            int mid=i+(j-i)/2;
+            if(nums[mid]==target){
+                return mid;
+            }
+            else if(nums[mid]>=nums[i]){
+                if(target>=nums[i]&& target<nums[mid]){
+                    j=mid-1;
+                }
+                else
+                    i=mid+1;
+            }
+            else if(nums[mid]<=nums[j]){
+                if(target>nums[mid]&&target<=nums[j])
+                    i=mid+1;
+                else
+                j=mid-1;
+            }
+        }
+        return -1;
+    }
+};
+
+// 153:Find minimum in rotated sorted array
+
+class Solution {
+public:
+    int findMin(vector<int>& nums) {
+        int s=0;
+        int e=nums.size()-1;
+        int mid=s+((e-s)/2);
+        while(s<e){
+            if(nums[s] <= nums[e]) return nums[s];
+            if (nums[mid]>=nums[0]){
+                s=mid+1;
+            }else{
+                e=mid;
+            }
+            mid=s+((e-s)/2);
+        }
+        return nums[mid];
+        
+    }
+};
 
