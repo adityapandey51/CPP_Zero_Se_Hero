@@ -213,3 +213,51 @@ void sort012(int *arr, int n)
       }
    }
 }
+
+// first and last postion in an array
+
+#include <bits/stdc++.h> 
+int first_occurence(vector<int>& arr, int n, int k){
+     int start=0;
+    int end=n-1;
+    int mid=start+((end-start)/2);
+    int left=-1;
+    while(start<=end){
+        if (arr[mid]==k){
+            left=mid;
+            end=mid-1;
+        }else if(arr[mid]>k){
+            end=mid-1;
+        }else{
+            start=mid+1;
+        }
+    }
+    return left;
+}
+int last_occurence(vector<int>& arr, int n, int k){
+     int start=0;
+    int end=n-1;
+    int mid=start+((end-start)/2);
+    int right=-1;
+    while(start<=end){
+        if (arr[mid]==k){
+            right=mid;
+            start=mid+1;
+        }else if(arr[mid]>k){
+            end=mid-1;
+        }else{
+            start=mid+1;
+        }
+    }
+    return right;
+}
+pair<int, int> firstAndLastPosition(vector<int>& arr, int n, int k)
+{
+    int left=first_occurence(arr,n,k);
+    int right=last_occurence(arr,n,k);
+    pair<int,int> p;
+    p.first=left;
+    p.second=right;
+    return p;
+
+}
