@@ -128,18 +128,7 @@ public:
 };
 
 
-// Duplicate in an array
 
-int duplicate(int arr[],int size){
-    int ans=0;
-    for (int i=0;i<size;i++){
-        ans=ans^arr[i];
-    }
-    for (int j=1;j<size;j++){
-        ans=ans^j;
-    }
-    return ans;
-}
 
 // 1207.Given an array of integers arr, return true if the 
 // number of occurrences of each value in the array is unique or false otherwise.
@@ -294,28 +283,6 @@ double more_precise_sqr_root(int x,int n){
 
 }
 
-// PROBLEM 1:Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
-
-// You may assume that each input would have exactly one solution, and you may not use the same element twice.
-
-// You can return the answer in any order.
-
-class Solution {
-public:
-    vector<int> twoSum(vector<int>& nums, int target) {
-        vector<int> ans;
-        for(int i=0;i<nums.size();i++){
-            for (int j=i+1;j<nums.size();j++){
-                 if(nums[i]+nums[j]==target){
-                     ans.push_back(i);
-                     ans.push_back(j);
-                     break;
-                 }
-            }
-        }
-        return ans;
-    }
-};
 
 
 

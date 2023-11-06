@@ -9,7 +9,7 @@ void selection_sort(int arr[],int size){
     for (int i=0;i<size;i++){
         int ans_ind=i;
         for(int j=i+1;j<size;j++){
-            if (arr[j]<arr[i]){
+            if (arr[j]<arr[ans_ind]){
                 ans_ind=j;
             }
         }

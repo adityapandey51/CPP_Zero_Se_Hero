@@ -8,7 +8,7 @@ int main(){
     int b=a+1;
 
     if ((a=3)==b){
-        cout<<"kha pe hai";
+        cout<<"kha pe hai"<< a;
     }
     else{
 cout<<"kaise ho";
