@@ -261,3 +261,83 @@ pair<int, int> firstAndLastPosition(vector<int>& arr, int n, int k)
     return p;
 
 }
+
+// Search in a rotated sorted array
+
+int binary_search(vector<int>& arr, int start, int end, int k){
+    int mid=start+((end-start)/2);
+    while(start<=end){
+        if (arr[mid]==k){
+            return mid;
+        }else if (arr[mid]>k){
+            end=mid-1;
+        }else(start=mid+1);
+        mid=start+((end-start)/2);
+    }
+    return -1;
+}
+int pivot(vector<int>& arr, int n){
+     int start=0;
+    int end=n-1;
+    int mid=start+((end-start)/2);
+    while(start<end){
+        if (arr[mid]>arr[0]){
+            start=mid+1;
+        }else{
+            end=mid;
+        }
+        mid=start+((end-start)/2);
+    }
+    return mid;
+}
+int search(vector<int>& arr, int n, int k)
+{
+    int ans;
+    int pi=pivot(arr,n);
+   if(k>arr[0]&& k<=arr[pi-1]){
+       ans=binary_search(arr,0,pi-1,k);
+   }else{
+       ans=binary_search(arr,pi,n-1,k);
+   }
+   return ans;
+}
+
+
+// sqrt(n)
+
+int floorSqrt(int n)
+{
+    int s=0;
+        int e=n;
+        long long int m=s+((e-s)/2);
+        int ans;
+        while(s<=e){
+            long long int sqr=m*m;
+            if (sqr>n){
+                e=m-1;
+            }
+            else if(sqr==n){
+                return m;
+            }
+            else{
+               ans=m;
+               s=m+1;
+            }
+            m=s+((e-s)/2);
+        }
+        return ans;
+}
+
+// more precission
+
+double more_precisiion(int n,int precision , int tempsol){
+    int factor=1;
+    int ans=tempsol;
+    for(int i=0;i<precision;i++){
+        factor=factor/10;
+        for (double j=ans;j*j<n;j+=factor){
+            ans=j;
+        }
+    }
+    return ans;
+}
