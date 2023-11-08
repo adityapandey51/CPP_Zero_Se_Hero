@@ -14,7 +14,7 @@ void selection_sort(int arr[],int size){
             }
         }
         if(ans_ind!=i){
-            swap(arr[ans_ind],arr[i]);
+            swap(arr[ans_ind ],arr[i]);
         }
     }
 }
