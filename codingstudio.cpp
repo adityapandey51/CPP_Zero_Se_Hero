@@ -341,3 +341,91 @@ double more_precisiion(int n,int precision , int tempsol){
     }
     return ans;
 }
+
+// Reverse the array from given index
+
+void reverseArray(vector<int> &arr , int m)
+{
+	int s=m+1;
+	int e=arr.size()-1;
+	while(s<=e){
+		swap(arr[s],arr[e]);
+		s++;
+		e--;
+	}
+}
+
+// sum of two arrays
+
+#include <bits/stdc++.h> 
+vector<int> reverse(vector<int> v){
+    int s=0;
+    int e=v.size()-1;
+    while(s<=e){
+        swap(v[s],v[e]);
+        s++;
+        e--;
+    }
+    return v;
+}
+vector<int> findArraySum(vector<int>&a, int n, vector<int>&b, int m) {
+    int i=n-1;
+    int j=m-1;
+    int carry=0;
+    vector<int> ans;
+    while(i>=0 && j>=0){
+        int sum=a[i]+b[j]+carry;
+        carry=sum/10;
+        int value=sum%10;
+        ans.push_back(value);
+        i--;
+        j--;
+    }
+    while(i>=0){
+        int sum=a[i]+carry;
+        carry=sum/10;
+        int value=sum%10;
+        ans.push_back(value);
+        i--;
+    }
+    while(j>=0){
+        int sum=b[j]+carry;
+        carry=sum/10;
+        int value=sum%10;
+        ans.push_back(value);
+        j--;
+    }
+    while(carry!=0){
+        int sum=carry;
+        carry=sum/10;
+        int value=sum%10;
+        ans.push_back(value);
+    }
+    
+    return reverse(ans);
+}
+
+// other method
+
+vector<int> findArraySum(vector<int>&a, int n, vector<int>&b, int m) {
+    int num1=0;
+    int num2=0;
+    for (int i=0;i<n;i++){
+        num1=(num1*10)+a[i];
+    }
+    for (int i=0;i<m;i++){
+        num2=(num2*10)+a[i];
+    }
+
+    int ans=num1+num2;
+    vector<int> sol;
+    while(ans){
+        int digit=ans%10;
+        sol.push_back(digit);
+        ans=ans/10;
+    }
+
+    return reverse(sol);
+
+}
+
