@@ -429,3 +429,69 @@ vector<int> findArraySum(vector<int>&a, int n, vector<int>&b, int m) {
 
 }
 
+// Check If The String Is A Palindrome
+
+
+#include <bits/stdc++.h> 
+char to_lower_case(char ch){
+    if((ch>='a' && ch<='z') ||(ch>='0' && ch<='9') ){
+        return ch;
+    }else{
+        char b= ch-'A'+'a';
+        return b;
+    }
+   
+    
+}
+bool isValid(char a){
+    if ((a>='a' && a<='z') ||(a>='A' && a<='Z')||(a>='0' && a<='9')){
+        return 1;
+    }
+    return 0;
+}
+bool check(string ab){
+    int st=0;
+    int e=ab.length()-1;
+    while(st<e){
+        if(ab[st]!=ab[e]){
+            return false;
+        }else{
+            st++;
+            e--;
+        }
+    }
+    return true;
+}
+bool checkPalindrome(string s)
+{
+   
+    string temp="";
+        for (int i=0; i<s.length();i++){
+            if(isValid(s[i])){
+                temp.push_back(s[i]);
+            }
+        }
+        for (int j=0; j<temp.length();j++){
+            temp[j]=to_lower_case(temp[j]);
+        }
+
+       return check(temp);
+
+}
+
+// replace spaces with @40
+#include <bits/stdc++.h> 
+string replaceSpaces(string &str){
+	string temp="";
+	for (int i=0;i<str.length();i++){
+		if(str[i]==' '){
+           temp.push_back('@');
+		   temp.push_back('4');
+		   temp.push_back('0');
+		}
+		else{
+			temp.push_back(str[i]);
+		}
+	}
+	return temp;
+}
