@@ -495,3 +495,30 @@ string replaceSpaces(string &str){
 	}
 	return temp;
 }
+
+// print like a wave
+
+#include <bits/stdc++.h> 
+vector<int> wavePrint(vector<vector<int>> arr, int nRows, int mCols)
+{
+    int i=0;
+    vector<int> ans;
+    while(i<mCols){
+        int j;
+        if (!(i&1)){
+           j=0;
+        }else{
+           j=nRows-1;
+        }
+       while(j<nRows && j>=0){
+         ans.push_back(arr[j][i]);
+          if (!(i&1)){
+             j++;
+          }else{
+            j--;
+          }
+       }
+       i++;
+   }
+   return ans;
+}
