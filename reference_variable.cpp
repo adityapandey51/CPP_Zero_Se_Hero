@@ -1,21 +1,25 @@
 #include<iostream>
 using namespace std;
 
+// BAD PRACTICE
 int& func(int a) {
     int num = a;
     int& ans = num;
     return ans;
 }
 
+// BAD PRACTICE
 int* fun(int n) {
     int* ptr = &n;
     return ptr;
 }
 
+// UPDATES GLOBALLY
 void update2(int& n) {
     n++;
 }
 
+// UPDATES LOCALLY
 void update1(int n) {
     n++;
 }
@@ -66,7 +70,8 @@ int main() {
     int n;
     cin >> n;
     
-    //variable size array
+    //variable size array is a bad practice because we get to know the size at runtime not at compile time.
+    // but we can have a variable size arrayusing dynnamic memory allocation as shown below.
     int* arr = new int[n];
 
     //takign inputn in aray
@@ -86,6 +91,9 @@ int main() {
 //case 2
     while(true) {
         int* ptr = new int;
+        delete ptr;
+        // for array
+        // delete []arr
     }
 
 
