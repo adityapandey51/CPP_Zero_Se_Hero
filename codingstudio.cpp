@@ -522,3 +522,15 @@ vector<int> wavePrint(vector<vector<int>> arr, int nRows, int mCols)
    }
    return ans;
 }
+
+
+//count ways to reach n-stairs-recursion
+//better done with DP
+
+#include <bits/stdc++.h> 
+int countDistinctWays(int nStairs) {
+    if (nStairs<0) return 0;
+    if (nStairs==0) return 1;
+
+    return countDistinctWays(nStairs-1)+countDistinctWays(nStairs-2);
+}
