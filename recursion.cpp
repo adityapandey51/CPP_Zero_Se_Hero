@@ -53,15 +53,38 @@ int sum(int arr[],int size){
 
 }
 
+//linear search
+bool linearSearch(int arr[],int size,int key){
+    if (size==0) return false;
+    if (arr[0]==key) return true;
+    
+    return linearSearch(arr+1,size-1,key);
+    
+}
+
+//binary search
+bool binarySearch(int arr[],int s,int e,int key){
+    if (s>e) return false;
+
+    int mid=s+((e-s)/2);
+    if (arr[mid]==key)return true;
+    else if (arr[mid]> key) return binarySearch(arr,s,mid-1,key);
+    else{
+        return binarySearch(arr,mid+1,e,key);
+    }
+
+}
 int main(){
     int arr[5]={1,2,3,4,5};
     string ar[10]={"zero","one","two","three","four","five","six","seven","eight","nine"};
-    int n=421;
+    int n=4;
     int fact=fibonacci(n);
     sayDigit(n,ar);
     cout<<endl<<endl;
     bool isSort=isSorted(arr,5);
+    cout<<"hello"<<endl;
     int ans=sum(arr,5);
+
     cout<<"the sum of the array is "<<ans<<endl;
     cout<<endl<<endl;
     cout<<"array is sorted or not "<<isSort<<endl;
