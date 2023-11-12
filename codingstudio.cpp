@@ -534,3 +534,43 @@ int countDistinctWays(int nStairs) {
 
     return countDistinctWays(nStairs-1)+countDistinctWays(nStairs-2);
 }
+
+// reverse a string
+#include <bits/stdc++.h> 
+void reverse(string& str,int s,int e){
+	if(s>e) return;
+	swap(str[s],str[e]);
+	s++;
+	e--;
+	reverse(str,s,e);
+}
+string reverseString(string str)
+{
+	
+	reverse(str,0,str.length()-1);
+	return str;
+}
+
+// check palindrome of binary representation of a number
+#include <bits/stdc++.h> 
+bool check(vector<int> str , int s,int e){
+    if(s>e) return true;
+    if (str[s]==str[e]){
+        s++;
+        e--;
+        return check(str,s,e);
+    } else{
+        return false;
+    }   
+}
+bool checkPalindrome(long long N)
+{
+	vector<int> ch;
+	int i=0;
+	while(N!=0){
+		ch[i++]=N&1;
+		N>>1;
+	}
+	reverse(ch.begin(),ch.end());
+	return check(ch,0,ch.size()-1);
+}

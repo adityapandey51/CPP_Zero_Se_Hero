@@ -74,8 +74,139 @@ bool binarySearch(int arr[],int s,int e,int key){
     }
 
 }
+
+//check palindrome
+bool checkPalindrome(string str , int s,int e){
+    if (s>e) return true;
+    if (str[s]==str[e]){
+        s++;
+        e--;
+        return checkPalindrome(str,s,e);
+    } else{
+        return false;
+    }   
+}
+
+//bubble sort
+void bubbleSort(int arr[],int size){
+    if (size==0 || size==1) return;
+    for (int i=0;i<size-1;i++){
+        if (arr[0]>arr[1]){
+            swap(arr[0],arr[1]);
+        }
+        bubbleSort(arr+1,size-1);
+    }
+   
+}
+// betterone
+// void bubbleSort(int arr[],int size){
+//     if (size==0 || size==1) return;
+//     for (int i=0;i<size-1;i++){
+//         if (arr[i]>arr[i+1]){
+//             swap(arr[i],arr[i+1]);
+//         }
+//     }
+//     bubbleSort(arr,size-1);
+   
+// }
+
+//selection sort
+
+void selectionSort(int arr[],int size){
+    if (size==0 || size==1) return;
+
+    
+        int ans_ind=0;
+        int key=arr[0];
+        for (int j=1;j<size;j++){
+            if (arr[j]<arr[ans_ind]){
+                ans_ind=j;
+            }
+        }
+        if (ans_ind!=0) {swap(arr[0],arr[ans_ind]);}
+
+        selectionSort(arr+1,size-1);
+    
+}
+
+//insertion sort
+void insertion(int arr[],int size){
+    if (size=0 ||size==1) return;
+    
+    insertion(arr,size-1);
+
+    int i=size-1;
+    int key=arr[i];
+    int j=i-1;
+    for (;j>=0;j--){
+        if (arr[j]>key){
+            arr[j+1]=arr[j];
+        }
+    }
+    arr[j+1]=key;
+    
+}
+
+//inverting count
+
+int inversionCount(int arr[],int size){
+    int count=0;
+    for (int i=0;i<size;i++){
+        for (int j=i+1;j<size;j++){
+            if (arr[i]>arr[j]){
+                count++;
+            }
+        }
+    }
+    return count;
+}
+
+//Quick Sort
+int partition(int arr[],int s,int e){
+    int pivot=arr[s];
+    int count=0;
+    for (int i=s+1;i<e+1;i++){
+        if (arr[i]<pivot){
+            count++;
+        }
+    }
+    int indexOfPivot=s+count;
+    swap(arr[s],arr[indexOfPivot]);
+    int i=s;
+    int j=e;
+    while(i<j){
+       while(arr[i]<pivot){
+        i++;
+       }
+       while(arr[j]>pivot){
+        j--;
+       }
+       if (i<indexOfPivot && j>indexOfPivot){
+        swap(arr[i],arr[j]);
+       }
+    }
+    return indexOfPivot;
+}
+
+void quickSort(int arr[],int s,int e){
+    if (s>=e) return;
+
+    int p=partition(arr,s,e);
+
+    quickSort(arr,s,p-1);
+    quickSort(arr,p+1,e);
+
+}
+
+
+
+
 int main(){
-    int arr[5]={1,2,3,4,5};
+    int arr[5]={31,22,76,41,234};
+    quickSort(arr,0,4);
+    for (int i=0;i<5;i++){
+        cout<<arr[i]<<"  ";
+    }
     string ar[10]={"zero","one","two","three","four","five","six","seven","eight","nine"};
     int n=4;
     int fact=fibonacci(n);
