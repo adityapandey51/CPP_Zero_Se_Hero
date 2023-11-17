@@ -1213,3 +1213,35 @@ public:
         return ans*sign;
     }
 };
+
+
+//34.first and last position of an element.
+class Solution {
+
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+        const int l = ranges::lower_bound(nums, target) - nums.begin();
+        if (l == nums.size() || nums[l] != target)
+            return {-1, -1};
+        const int r = ranges::upper_bound(nums, target) - nums.begin() - 1;
+        return {l, r};
+    }
+};
+
+//14.LONGEST COMMON PREFIX
+
+class Solution {
+public:
+    string longestCommonPrefix(vector<string>& strs) {
+        if (strs.empty()) return "";
+
+        for (int i=0;i<strs[0].length();i++){
+            for (int j=1;j<strs.size();j++){
+                if(i==strs[j].length()||strs[j][i]!=strs[0][i]){
+                    return strs[0].substr(0,i);
+                }
+            }
+        }
+        return strs[0];
+    }
+};
