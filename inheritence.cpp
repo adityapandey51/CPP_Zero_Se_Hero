@@ -34,7 +34,8 @@ class Male: private Human {
     }
 
     int getHeight() {
-        return this->height;
+        //not accessible
+        // return this->height;
     }
 
 };

@@ -1184,3 +1184,32 @@ public:
         return nums.size();
     }
 };
+
+//29.DIVIDE TWO INTEGERS
+//Given two integers dividend and divisor,
+//divide two integers without using multiplication, division, and mod operator.
+
+class Solution {
+public:
+    int divide(int dividend, int divisor) {
+        if (dividend==INT_MIN && divisor==-1){
+            return INT_MAX;
+        }
+
+        const int sign=(dividend>0 ^ divisor>0)?-1:1;
+
+        long did=labs(dividend);
+        long div=labs(divisor);
+        long ans=0;
+
+        while(did>=div){
+            long k=1;
+            while(k*2*div<=did){
+                k*=2;
+            }
+            did-=(k)*div;
+            ans+=k;
+        }
+        return ans*sign;
+    }
+};
