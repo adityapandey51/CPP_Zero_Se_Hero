@@ -1245,3 +1245,39 @@ public:
         return strs[0];
     }
 };
+
+//59.Spiral matrix II
+
+class Solution {
+public:
+    vector<vector<int>> generateMatrix(int n) {
+
+        int startingrow=0;
+        int endingrow=n-1;
+        int startingcol=0;
+        int endingcol=n-1;
+
+        int count=1;
+        int total=n*n;
+        vector<vector<int>> ans(n,vector<int>(n));
+        while(count<=total){
+            for (int i=startingcol;(count<=total)&&(i<=endingcol);i++){
+                ans[startingrow][i]=count++;       
+            }
+            startingrow++;
+            for (int i=startingrow;(count<=total)&&(i<=endingrow);i++){
+                ans[i][endingcol]=count++;
+            }
+            endingcol--;
+            for (int i=endingcol;(count<=total)&&(i>=startingcol);i--){
+               ans[endingrow][i]=count++;
+            }
+            endingrow--;
+            for (int i=endingrow;(count<=total)&&(i>=startingrow);i--){
+                ans[i][startingcol]=count++;
+            }
+            startingcol++;
+        }        
+       return ans;
+    }
+};
