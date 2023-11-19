@@ -13,6 +13,19 @@ class Node{
     }
 };
 
+//gives length of Linked List
+int getLength(Node* head) {
+    int len = 0;
+    Node* temp  = head ;
+
+    while(temp != NULL) {
+        len++;
+        temp  = temp -> next;
+    }
+
+    return len;
+}
+
 void insertAtBegin(Node* &Head,int data){
     //new node
     Node* temp=new Node(data);
