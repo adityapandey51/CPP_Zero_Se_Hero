@@ -345,6 +345,24 @@ public:
     }
 };
 
+//inplace sol.
+class Solution {
+public:
+    void rotate(vector<int>& nums, int k) {
+       k %=nums.size();
+       reverse(nums,0,nums.size()-1);
+       reverse(nums,0,k-1);
+       reverse(nums,k,nums.size()-1);
+    }
+
+private:
+    void reverse(vector<int> &nums,int l,int r){
+        while(l<r){
+            swap(nums[l++],nums[r++]);
+        }
+    }
+};
+
 
 // 283.Given an integer array nums, move all 0's to the end of it while maintaining
 // the relative order of the non-zero elements.
@@ -1279,5 +1297,87 @@ public:
             startingcol++;
         }        
        return ans;
+    }
+};
+
+//21.MERGE TWO SORTED LISTS
+/*You are given the heads of two sorted linked lists list1 and list2.
+
+Merge the two lists into one sorted list. The list should be made by splicing together the nodes of the first two lists.
+
+Return the head of the merged linked list.
+
+ */
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+
+public:
+    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+        if (!list1 || !list2)
+            return list1 ? list1 : list2;
+        if (list1->val > list2->val)
+            swap(list1, list2);
+        list1->next = mergeTwoLists(list1->next, list2);
+        return list1;
+    }
+};
+
+
+//24.SWAP NODES IN PAIRS
+
+/*
+Given a linked list, swap every two adjacent nodes and return its head. 
+You must solve the problem without modifying the values in the list's nodes
+(i.e., only nodes themselves may be changed.)
+*/
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+private:
+    int getLength(ListNode* &head){
+        int count=0;
+        ListNode* temp=head;
+        while(temp!=NULL){
+            count++;
+            temp=temp->next;
+        }
+        return count;
+    }
+public:
+    ListNode* swapPairs(ListNode* head) {
+        ListNode dummy(0,head);
+        ListNode* prev=&dummy;
+        ListNode* curr=head;
+        const int length=getLength(head);
+
+        for (int i=0;i<length/2;i++){
+            ListNode* temp=curr->next;
+            curr->next=temp->next;
+            temp->next=prev->next;
+            prev->next=temp;
+            prev=curr;
+            curr=curr->next;
+        }
+
+        return dummy.next;
     }
 };
