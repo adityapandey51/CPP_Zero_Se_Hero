@@ -1455,4 +1455,108 @@ public:
     }
 };
 
+//25.Reverse in K Groups;
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+private:
+  ListNode* reverse(ListNode* head, ListNode* tail) {
+    ListNode* prev = nullptr;
+    ListNode* curr = head;
+    while (curr != tail) {
+      ListNode* next = curr->next;
+      curr->next = prev;
+      prev = curr;
+      curr = next;
+    }
+    return prev;
+  }
+public:
+    ListNode* reverseKGroup(ListNode* head, int k) {
+       if (head == nullptr)
+      return nullptr;
+
+    ListNode* tail = head;
+
+    for (int i = 0; i < k; ++i) {
+      if (tail == nullptr)
+        return head;
+      tail = tail->next;
+    }
+
+    ListNode* newHead = reverse(head, tail);
+    head->next = reverseKGroup(tail, k);
+    return newHead;
+    }
+};
+
+
+//141. LinkedList cycle
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+        if (head==NULL) return false;
+        map<ListNode*,bool> mp;
+
+        ListNode* temp=head;
+
+        while(temp!=NULL){
+            if (mp[temp]==true) return true;
+            mp[temp]=true;
+            temp=temp->next;
+        };
+
+        return false;
+
+    }
+};
+
+//142.Given the head of a linked list, return the node where the cycle begins. If there is no cycle, return null.
+
+//There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the next pointer. Internally, pos is used to denote the index of the node that tail's next pointer is connected to (0-indexed). It is -1 if there is no cycle. Note that pos is not passed as a parameter.
+
+//Do not modify the linked list.
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *detectCycle(ListNode *head) {
+        if (head==NULL) return nullptr;
+
+        map<ListNode*,bool> mp;
+
+        ListNode* temp=head;
+        while(mp[temp]!=true && temp!=NULL){
+            mp[temp]=true;
+            temp=temp->next;
+        }
+        return temp;
+    }
+};
+
  
