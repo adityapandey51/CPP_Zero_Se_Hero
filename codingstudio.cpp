@@ -656,3 +656,170 @@ Node * removeDuplicates(Node *head)
   }
   return head;
 }
+
+//REMOVE FROM UNSORTED LIST
+#include <bits/stdc++.h> 
+/****************************************************************
+    Following is the class structure of the Node class:
+    class Node
+    {
+    public:
+        int data;
+        Node *next;
+        Node(int data)
+        {
+            this->data = data;
+            this->next = NULL;
+        }
+    };
+*****************************************************************/
+
+Node *removeDuplicates(Node *head)
+{
+    if (head==NULL || head->next==NULL) return head;
+
+    map<int,bool> mp;
+    Node* curr=head;
+    Node* prev=curr;
+    mp[curr->data]=true;
+    Node* net=curr->next;
+    while(net!=NULL){
+        if (mp[net->data]){
+            prev->next=prev->next->next;    
+        }else{   
+            mp[net->data]=true;
+            prev=prev->next;
+        }
+        net=net->next;
+           
+    }
+   
+    return head;
+}
+
+//SORT LINKED LIST 0S,1S,2S
+
+/*
+Following is the class structure of the Node class:
+
+class Node
+{
+public:
+    int data;
+    Node *next;
+    Node()
+    {
+        this->data = 0;
+        next = NULL;
+    }
+    Node(int data)
+    {
+        this->data = data; 
+        this->next = NULL;
+    }
+    Node(int data, Node* next)
+    {
+        this->data = data;
+        this->next = next;
+    }
+};
+*/
+
+Node* sortList(Node *head){
+    int zerocount=0;
+    int onecount=0;
+    int twocount=0;
+    Node* temp=head;
+    while(temp!=NULL){
+        if (temp->data==0){
+             zerocount++;
+        }else if (temp->data==1){
+            onecount++;
+        }else{
+            twocount++;
+        } 
+        temp=temp->next;
+    }
+    temp=head;
+    while(temp!=NULL){
+        if (zerocount){
+            temp->data=0;
+            zerocount--;
+        }else if(onecount){
+            temp->data=1;
+            onecount--;
+        }else{
+            temp->data=2;
+            twocount--;
+        }
+        temp=temp->next;
+    }
+    return head;
+}
+
+//Theres another approach to the question,if no data replacement is required; the simply create three linked list with head 
+//and tail pointers;
+//and add the 0s 1s and 2s as u get them in the given linked list and at alast merge these three lists together.
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//MERGE SORTED LINKED LISTS
+/************************************************************
+
+    Following is the linked list node structure.
+    
+    template <typename T>
+    class Node {
+        public:
+        T data;
+        Node* next;
+
+        Node(T data) {
+            next = NULL;
+            this->data = data;
+        }
+
+        ~Node() {
+            if (next != NULL) {
+                delete next;
+            }
+        }
+    };
+
+************************************************************/
+
+Node<int>* sortTwoLists(Node<int>* first, Node<int>* second)
+{
+  if(first==NULL || second==NULL){
+      return ((first==NULL)?second:first);
+  }
+  Node<int>* ans=new Node<int>(0);
+  Node<int>* curr=ans;
+  while(first!=NULL && second!=NULL){
+      if(first->data<second->data){
+          curr->next=first;
+          first=first->next;
+      }else{
+          curr->next=second;
+          second=second->next;
+      }
+      curr=curr->next;
+  }
+  if(first!=NULL || second!=NULL){
+      curr->next=((first!=NULL)?first:second);
+  }
+  Node<int>* head=ans->next;
+  free(ans);
+  return head;
+
+} 
+
+//ANOTHER APPROACH
+// if (!first || !second)
+//     return first ? first : second;
+//  if (first->data > second->data)
+//     swap(first, second);
+//  first->next = sortTwoLists(first->next, second);
+//  return first;
+
+
