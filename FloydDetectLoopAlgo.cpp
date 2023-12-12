@@ -12,8 +12,8 @@ class Node{
     }
 };
 
-bool FloydCycleDetection(Node* head){
-    if (head==NULL) return false;
+Node* FloydCycleDetection(Node* head){
+    if (head==NULL) return nullptr;
 
     Node* slow=head;
     Node* fast=head;
@@ -24,8 +24,30 @@ bool FloydCycleDetection(Node* head){
         }
         slow=slow->next;
         if (slow==fast){
-            return true;
+            return slow;
         }
     }
-    return false;
+    return nullptr;
+}
+
+Node* startOfLoop(Node* head){
+    Node* intersection=FloydCycleDetection(head);
+    if(intersection==NULL) return nullptr;
+    Node* slow=head;
+    while(slow!=intersection){
+        slow=slow->next;
+        intersection=intersection->next;
+    }
+    return slow;
+}
+
+void removeLoop(Node* head){
+    if(head==NULL) return;
+    if (!FloydCycleDetection) return;
+    Node* start=startOfLoop(head);
+    Node* temp=start;
+    while(temp->next!=start){
+        temp=temp->next;
+    }
+    temp->next=nullptr;
 }

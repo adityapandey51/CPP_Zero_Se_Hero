@@ -643,3 +643,16 @@ LinkedListNode<int> *reverseLinkedList(LinkedListNode<int> *head)
    reverse(head,curr,prev);
    return head;
 }
+
+//REMOVE DUPLICATES FROM SORTED LINKED LIST
+
+Node * removeDuplicates(Node *head)
+{
+  Node* curr=head;
+  while(curr){
+      while(curr->next && curr->data==curr->next->data)
+        curr->next=curr->next->next;
+    curr=curr->next;
+  }
+  return head;
+}
