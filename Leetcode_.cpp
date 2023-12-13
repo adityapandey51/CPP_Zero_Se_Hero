@@ -1668,4 +1668,223 @@ public:
     }
 };
 
- 
+//234.PALINDROME LINKED LIST
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+private:
+    ListNode* reverse(ListNode* slow){
+        ListNode* curr=slow;
+        ListNode* prev=NULL;
+        while(curr){
+            ListNode* next=curr->next;
+            curr->next=prev;
+            prev=curr;
+            curr=next;
+        }
+        return prev;
+    }
+public:
+    bool isPalindrome(ListNode* head) {
+        if(head==NULL) return false;
+        ListNode* slow=head;
+        ListNode* fast=head;
+        while(fast->next!=NULL && fast->next->next!=NULL){
+            slow=slow->next;
+            fast=fast->next->next;
+        }
+        if (fast){
+            slow=slow->next;
+        }
+        slow=reverse(slow);
+
+        while(slow){
+            if (slow->val!=head->val){
+                return false;
+            }
+            slow=slow->next;
+            head=head->next;
+        }
+        return true;
+    }
+};
+
+//2.ADD TWO NUMBERS
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+private:
+    ListNode* add(ListNode* l1,ListNode* l2){
+        int carry=0;
+        ListNode* ans=new ListNode(0);
+        ListNode* curr=ans;
+        while(l1 && l2){
+            int ans=l1->val+l2->val+carry;
+            int digit=ans%10;
+            curr->next=new ListNode(digit);
+            carry=ans/10;
+            l1=l1->next;
+            l2=l2->next;
+            curr=curr->next;
+        }
+        while(l1){
+            int ans=l1->val+carry;
+            int digit=ans%10;
+            curr->next=new ListNode(digit);
+            carry=ans/10;
+            l1=l1->next;
+            curr=curr->next;
+        }
+        while(l2){
+            int ans=l2->val+carry;
+            int digit=ans%10;
+            curr->next=new ListNode(digit);
+            carry=ans/10;
+            l2=l2->next;
+            curr=curr->next;
+        }
+        if(carry){
+            curr->next=new ListNode(carry);
+        }
+        ListNode* head=ans->next;
+        ans->next=NULL;
+        return head;
+    }
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {  
+        ListNode* ans=add(l1,l2);
+        return ans;
+    }
+};
+
+//138.COPY LIST WITH RANDOM POINTER
+/*
+// Definition for a Node.
+class Node {
+public:
+    int val;
+    Node* next;
+    Node* random;
+    
+    Node(int _val) {
+        val = _val;
+        next = NULL;
+        random = NULL;
+    }
+};
+*/
+
+class Solution {
+public:
+    Node* copyRandomList(Node* head) {
+       Node* temp=head;
+       Node* ans=new Node(0);
+       Node* curr=ans;
+       while(temp){
+           curr->next=new Node(temp->val);
+            curr=curr->next;
+            temp=temp->next;
+       } 
+       temp=head;
+       curr=ans->next;
+       map<Node*,Node*> mp;
+
+       while(temp){
+          mp[temp]=curr;
+          temp=temp->next;
+          curr=curr->next; 
+       }
+
+       curr=ans->next;
+       temp=head;
+        while(curr){
+            curr->random=mp[temp->random];
+            curr=curr->next;
+            temp=temp->next;
+        }
+
+       return ans->next;
+    }
+};
+
+//WE CAN ALSO DO IN O(1) S.C
+//WITHOUT USING MAP
+
+///////////////////////////////////////////////////////
+//2095.DELETE THE MIDDLE NODE OF LINKED LIST
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* deleteMiddle(ListNode* head) {
+        if (head==NULL || head->next==NULL) return nullptr;
+        ListNode* slow=head;
+        ListNode* prev=NULL;
+        ListNode* fast=head;
+        while(fast!=NULL && fast->next!=NULL){
+            prev=slow;
+            slow=slow->next;
+            fast=fast->next->next;
+        }
+        prev->next=slow->next;
+        slow->next=NULL;        
+        return head;
+    }
+};
+
+//20.Valid parenthesis
+
+class Solution {
+public:
+    bool isValid(string s) {
+    stack<char> st;
+    for(int i=0;i<s.length();i++){
+        char ch=s[i];
+        if (ch=='{' || ch=='[' || ch=='('){
+            st.push(ch);
+        } else {
+            if (!st.empty()) {
+              char top = st.top();
+              if (ch == '}' && top == '{') {
+                st.pop();
+              } else if (ch == ']' && top == '[') {
+                st.pop();
+              } else if (ch == ')' && top == '(') {
+                st.pop();
+              } else {
+                return false;
+              }
+            } else {
+              return false;
+            }
+        }
+    }
+    return st.empty();
+    }
+};

@@ -822,4 +822,306 @@ Node<int>* sortTwoLists(Node<int>* first, Node<int>* second)
 //  first->next = sortTwoLists(first->next, second);
 //  return first;
 
+/////////////////////////////////////////////////////////////////////
 
+//Mergesort linked list
+
+/********************************************************************
+
+    Following is the representation of the Singly Linked List Node:
+
+    class node{
+        public:
+            int data;
+            node * next;
+            node(int data){
+                this->data=data;
+                this->next=NULL;
+            }
+    };
+    
+********************************************************************/
+node* Mid(node*  head){
+    if (head==NULL || head->next==NULL) return head;
+    node* slow=head;
+    node*fast=head;
+    while(fast->next!=NULL && fast->next->next!=NULL){
+        slow=slow->next;
+        fast=fast->next->next;
+    }
+    return slow;
+}
+node* merge(node* left,node* right){
+    if (left==NULL || right==NULL){
+        return ((left==NULL)?right:left);
+    }
+
+    node* ans=new node(0);
+    node* curr=ans;
+    while(left!=NULL && right!=NULL){
+        if(left->data<right->data){
+            curr->next=left;
+            left=left->next;
+        }else{
+            curr->next=right;
+            right=right->next;
+        }
+        curr=curr->next;
+    }
+    if(left!=NULL || right!=NULL){
+        curr->next=((left!=NULL)?left:right);
+    }
+    return ans->next; 
+}
+node *mergeSort(node *head) {
+    if (head==NULL || head->next==NULL) return head;
+    node* mid=Mid(head);
+    node* newHead=mid->next;
+    mid->next=NULL;
+
+    node* left_head=mergeSort(head);
+    node* right_head=mergeSort(newHead);
+    return merge(left_head,right_head);
+}
+
+//.2 Stacks in one array
+
+#include <bits/stdc++.h> 
+class TwoStack {
+
+    int size;
+    int top1;
+    int top2;
+    int* arr;
+
+
+public:
+
+    // Initialize TwoStack.
+    TwoStack(int s) {
+        this->size=s;
+        this->top1=-1;
+        this->top2=s;
+        this->arr=new int[s];
+    }
+    
+    // Push in stack 1.
+    void push1(int num) {
+        if(this->top2-this->top1>1){
+            top1++;
+            arr[top1]=num;
+        }
+    }
+
+    // Push in stack 2.
+    void push2(int num) {
+       if(this->top2-this->top1>1){
+            top2--;
+            arr[top2]=num;
+        }
+    }
+
+    // Pop from stack 1 and return popped element.
+    int pop1() {
+        if(this->top1>-1){
+            int ans=arr[this->top1];
+            this->top1--;
+            return ans;
+        }else{
+            return -1;
+        }
+
+    }
+
+    // Pop from stack 2 and return popped element.
+    int pop2() {
+        if(this->top2<this->size){
+            int ans=arr[this->top2];
+            this->top2++;
+            return ans;
+        }else{
+            return -1;
+        }
+    }
+};
+
+
+//DELETE MIDDLE ELEMENT OF STACK USING RECURRSION
+#include <bits/stdc++.h> 
+
+void solve(stack<int>&inputStack,int count,int size){
+   if(count==size/2){
+      inputStack.pop();
+      return;
+   }
+   int num=inputStack.top();
+   inputStack.pop();
+   solve(inputStack,count+1,size);
+   inputStack.push(num);
+}
+
+void deleteMiddle(stack<int>&inputStack, int N){
+	
+   int count=0;
+   solve(inputStack,count,N);
+   
+}
+
+
+//valid paranthesis
+bool isValidParenthesis(string s)
+{
+    stack<char> st;
+    for(int i=0;i<s.length();i++){
+        char ch=s[i];
+        if (ch=='{' || ch=='[' || ch=='('){
+            st.push(ch);
+        } else {
+            if (!st.empty()) {
+              char top = st.top();
+              if (ch == '}' && top == '{') {
+                st.pop();
+              } else if (ch == ']' && top == '[') {
+                st.pop();
+              } else if (ch == ')' && top == '(') {
+                st.pop();
+              } else {
+                return false;
+              }
+            } else {
+              return false;
+            }
+        }
+    }
+    return st.empty();
+}
+
+//Insert An Element At Its Bottom In A Given Stack
+
+#include <bits/stdc++.h> 
+void solve(stack<int>& myStack,int x){
+    if (myStack.empty()){
+        myStack.push(x);
+        return;
+    }
+    int num=myStack.top();
+    myStack.pop();
+    solve(myStack,x);
+    myStack.push(num);
+}
+stack<int> pushAtBottom(stack<int>& myStack, int x) 
+{
+    solve(myStack,x);
+    return myStack;
+}
+
+
+//SOrt a stack
+#include <bits/stdc++.h> 
+void sortedInsert(stack<int> &stack,int x){
+	if(stack.empty()){
+		stack.push(x);
+		return;
+	}
+	if (stack.top()>x){
+		int y=stack.top();
+		stack.pop();
+		sortedInsert(stack,x);
+		stack.push(y);
+	}else{
+		stack.push(x);
+	}
+}
+void solve(stack<int> &stack){
+	if (stack.empty()){
+		return;
+	}
+	int x=stack.top();
+	stack.pop();
+	solve(stack);
+	sortedInsert(stack,x);
+}
+void sortStack(stack<int> &stack)
+{
+	solve(stack);
+}
+
+//REDUNDANT BRACKETS
+#include <bits/stdc++.h> 
+bool findRedundantBrackets(string &s)
+{
+     stack<char> st;
+    for(int i=0; i<s.length(); i++) {
+        char ch =s[i];
+        
+        if(ch == '(' || ch == '+' ||ch == '-' || ch == '*' || ch == '/') {
+            st.push(ch);
+        }
+        else
+        {
+            
+            
+            if(ch == ')') {
+                bool isRedundant = true;
+                
+                while(st.top() != '(') {
+                    char top = st.top();
+                    if(top == '+' ||top == '-' || top == '*' || top == '/') {
+                        isRedundant = false;
+                    }
+                    st.pop();
+                }
+                
+                if(isRedundant == true)
+                    return true;
+                st.pop();
+            }
+            
+        } 
+    }
+    return false;
+}
+
+//MINIMUM COST TO MAKE A STRING VALID
+#include <bits/stdc++.h> 
+int findMinimumCost(string str) {
+   //odd condition
+    if(str.length()%2 == 1) {
+        return -1;
+    }
+    
+    stack<char> s;
+    for(int i=0; i<str.length(); i++) {
+        char ch = str[i];
+        
+        if(ch == '{') 
+            s.push(ch);
+		else
+        {
+            //ch is closed brace
+            if(!s.empty() && s.top() == '{') {
+                s.pop();
+            }
+            else
+            {
+                s.push(ch);
+            }
+        }
+    }
+    
+        //stack contains invalid expression
+        int a = 0, b = 0;
+        while(!s.empty()) {
+            if(s.top() == '{') {
+                b++;
+            }
+            else
+            {
+                a++;
+            }
+            s.pop();
+        }
+        
+		int ans = (a+1)/2 + (b+1)/2;
+        return ans;
+}
