@@ -1888,3 +1888,58 @@ public:
     return st.empty();
     }
 };
+
+//84.largest rectangle in histogram
+
+class Solution {
+private:
+    vector<int> nextSmaller(vector<int>& heights){
+        stack<int> s;
+        s.push(-1);
+        vector<int> ans(heights.size());
+        for(int i=heights.size()-1; i>-1; i--){
+            int num=heights[i];
+            while(s.top()>-1 && heights[s.top()]>=num){
+                s.pop();
+            }   
+            ans[i]=s.top();
+            s.push(i);
+        }
+        return ans;
+    }
+     vector<int> beforeSmaller(vector<int>& heights){
+        stack<int> s;
+        s.push(-1);
+        vector<int> ans(heights.size());
+        for(int i=0; i<heights.size();i++){
+            int num=heights[i];
+            while(s.top()>-1 && heights[s.top()]>=num){
+                s.pop();
+            }   
+            ans[i]=s.top();
+            s.push(i);
+        }
+        return ans;
+    }
+public:
+    int largestRectangleArea(vector<int>& heights) {
+        vector<int> next;
+        next=nextSmaller(heights);
+        vector<int> prev;
+        prev=beforeSmaller(heights);
+        int ans=INT_MIN;
+
+        for(int i=0;i<heights.size();i++){
+            int length=heights[i];
+            int n=next[i];
+            int p=prev[i];
+            if (next[i]==-1){
+                n=heights.size();
+            }
+            int breadth=n-p-1;
+            int area=length*breadth;
+            ans=max(ans,area);
+        }
+        return ans;
+    }
+};

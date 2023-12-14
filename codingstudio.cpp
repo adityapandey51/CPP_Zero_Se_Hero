@@ -1125,3 +1125,138 @@ int findMinimumCost(string str) {
 		int ans = (a+1)/2 + (b+1)/2;
         return ans;
 }
+
+
+//Next smaller element.
+
+#include<stack>
+vector<int> nextSmallerElement(vector<int> &arr, int n)
+{
+    stack<int> s;
+    s.push(-1);
+    vector<int> ans(n);
+    for(int i=n-1 ; i>(-1) ; i--){
+        int curr=arr[i];
+        while(s.top() >= curr){
+            s.pop();
+        }
+        ans[i]=s.top();
+        s.push(curr);
+    }
+    return ans;
+}
+
+//CELEBRITY PROBLEM
+#include <bits/stdc++.h> 
+#include<stack>
+/*
+	This is signature of helper function 'knows'.
+	You should not implement it, or speculate about its implementation.
+
+	bool knows(int A, int B); 
+	Function 'knows(A, B)' will returns "true" if the person having
+	id 'A' know the person having id 'B' in the party, "false" otherwise.
+*/
+
+int findCelebrity(int n) {
+ 	stack<int> s;
+	for(int i=0;i<n;i++){
+		s.push(i);
+	}
+
+	while(s.size()>1){
+		int a=s.top();
+		s.pop();
+		int b=s.top();
+		s.pop();
+		if(knows(a,b)){
+			s.push(b);
+		}else{
+			s.push(a);
+		}
+	}
+
+	int num=s.top();
+	for (int i=0;i<n;i++){
+        if (knows(num,i) && i != num) {
+                return -1;
+        }
+    }
+    for (int i = 0; i < n; i++){
+		if(!knows(i,num) && i!=num){
+			return -1;
+		}
+	}
+	return num;
+}
+
+//Given a binary matrix M of size n X m. 
+//Find the maximum area of a rectangle formed only of 1s in the given matrix.
+class Solution{
+  private:
+     vector<int> nextSmaller(int* heights,int n){
+        stack<int> s;
+        s.push(-1);
+        vector<int> ans(n);
+        for(int i=n-1; i>-1; i--){
+            int num=heights[i];
+            while(s.top()>-1 && heights[s.top()]>=num){
+                s.pop();
+            }   
+            ans[i]=s.top();
+            s.push(i);
+        }
+        return ans;
+    }
+     vector<int> beforeSmaller(int* heights,int n){
+        stack<int> s;
+        s.push(-1);
+        vector<int> ans(n);
+        for(int i=0; i<n;i++){
+            int num=heights[i];
+            while(s.top()>-1 && heights[s.top()]>=num){
+                s.pop();
+            }   
+            ans[i]=s.top();
+            s.push(i);
+        }
+        return ans;
+    }
+    int largestRectangleArea(int* heights,int n) {
+        vector<int> next;
+        next=nextSmaller(heights,n);
+        vector<int> prev;
+        prev=beforeSmaller(heights,n);
+        int ans=INT_MIN;
+
+        for(int i=0;i<n;i++){
+            int length=heights[i];
+            int h=next[i];
+            int p=prev[i];
+            if (next[i]==-1){
+                h=n;
+            }
+            int breadth=h-p-1;
+            int area=length*breadth;
+            ans=max(ans,area);
+        }
+        return ans;
+    }
+  public:
+    int maxArea(int M[MAX][MAX], int n, int m) {
+       int area=largestRectangleArea(M[0],m);
+       
+       for(int i=1;i<n;i++){
+           for(int j=0;j<m;j++){
+               if(M[i][j]!=0){
+               M[i][j]=M[i][j]+M[i-1][j];
+               }else{
+                   M[i][j]=0;
+               }
+           }
+        area=max(area,largestRectangleArea(M[i],m));
+       }
+       return area;
+    }
+};
+
