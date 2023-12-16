@@ -479,6 +479,7 @@ bool checkPalindrome(string s)
 
 }
 
+------------------------------------------------------------------------------------
 // replace spaces with @40
 #include <bits/stdc++.h> 
 string replaceSpaces(string &str){
@@ -496,6 +497,7 @@ string replaceSpaces(string &str){
 	return temp;
 }
 
+-------------------------------------------------------------------------------------------
 // print like a wave
 
 #include <bits/stdc++.h> 
@@ -524,6 +526,7 @@ vector<int> wavePrint(vector<vector<int>> arr, int nRows, int mCols)
 }
 
 
+----------------------------------------------------------------------------------
 //count ways to reach n-stairs-recursion
 //better done with DP
 
@@ -535,6 +538,7 @@ int countDistinctWays(int nStairs) {
     return countDistinctWays(nStairs-1)+countDistinctWays(nStairs-2);
 }
 
+------------------------------------------------------------------------------------
 // reverse a string
 #include <bits/stdc++.h> 
 void reverse(string& str,int s,int e){
@@ -551,6 +555,7 @@ string reverseString(string str)
 	return str;
 }
 
+--------------------------------------------------------------------------------------
 // check palindrome of binary representation of a number
 #include <bits/stdc++.h> 
 bool check(vector<int> str , int s,int e){
@@ -575,7 +580,7 @@ bool checkPalindrome(long long N)
 	return check(ch,0,ch.size()-1);
 }
 
-
+------------------------------------------------------------------------------------
 // Subsequences of String
 
 #include <bits/stdc++.h> 
@@ -602,7 +607,7 @@ vector<string> subsequences(string str){
 	
 }
 
-
+-----------------------------------------------------------------------------------------------
 //REVERSE LL USING RECURSION
 
 #include <bits/stdc++.h>
@@ -657,6 +662,7 @@ Node * removeDuplicates(Node *head)
   return head;
 }
 
+-----------------------------------------------------------------------------------------
 //REMOVE FROM UNSORTED LIST
 #include <bits/stdc++.h> 
 /****************************************************************
@@ -761,8 +767,7 @@ Node* sortList(Node *head){
 //and tail pointers;
 //and add the 0s 1s and 2s as u get them in the given linked list and at alast merge these three lists together.
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+--------------------------------------------------------------------------------------------------
 //MERGE SORTED LINKED LISTS
 /************************************************************
 
@@ -884,6 +889,7 @@ node *mergeSort(node *head) {
     return merge(left_head,right_head);
 }
 
+----------------------------------------------------------------------------------------
 //.2 Stacks in one array
 
 #include <bits/stdc++.h> 
@@ -945,7 +951,7 @@ public:
     }
 };
 
-
+--------------------------------------------------------------------------------------
 //DELETE MIDDLE ELEMENT OF STACK USING RECURRSION
 #include <bits/stdc++.h> 
 
@@ -967,7 +973,7 @@ void deleteMiddle(stack<int>&inputStack, int N){
    
 }
 
-
+-------------------------------------------------------------------------------------
 //valid paranthesis
 bool isValidParenthesis(string s)
 {
@@ -996,6 +1002,8 @@ bool isValidParenthesis(string s)
     return st.empty();
 }
 
+-------------------------------------------------------------------------------------
+
 //Insert An Element At Its Bottom In A Given Stack
 
 #include <bits/stdc++.h> 
@@ -1015,7 +1023,7 @@ stack<int> pushAtBottom(stack<int>& myStack, int x)
     return myStack;
 }
 
-
+-----------------------------------------------------------------------------------------
 //SOrt a stack
 #include <bits/stdc++.h> 
 void sortedInsert(stack<int> &stack,int x){
@@ -1046,6 +1054,7 @@ void sortStack(stack<int> &stack)
 	solve(stack);
 }
 
+----------------------------------------------------------------------------------------------
 //REDUNDANT BRACKETS
 #include <bits/stdc++.h> 
 bool findRedundantBrackets(string &s)
@@ -1082,6 +1091,7 @@ bool findRedundantBrackets(string &s)
     return false;
 }
 
+---------------------------------------------------------------------------------------------
 //MINIMUM COST TO MAKE A STRING VALID
 #include <bits/stdc++.h> 
 int findMinimumCost(string str) {
@@ -1126,7 +1136,7 @@ int findMinimumCost(string str) {
         return ans;
 }
 
-
+----------------------------------------------------------------------------------------
 //Next smaller element.
 
 #include<stack>
@@ -1145,7 +1155,7 @@ vector<int> nextSmallerElement(vector<int> &arr, int n)
     }
     return ans;
 }
-
+------------------------------------------------------------------------------------------------------
 //CELEBRITY PROBLEM
 #include <bits/stdc++.h> 
 #include<stack>
@@ -1190,6 +1200,7 @@ int findCelebrity(int n) {
 	return num;
 }
 
+------------------------------------------------------------------------------------------------------------
 //Given a binary matrix M of size n X m. 
 //Find the maximum area of a rectangle formed only of 1s in the given matrix.
 class Solution{
@@ -1260,3 +1271,117 @@ class Solution{
     }
 };
 
+
+----------------------------------------------------------------------------------------
+//Design a stack that supports getMin() in O(1) time and O(1) extra space
+
+#include<stack>
+class SpecialStack {
+   stack<int> s;
+   int mini;
+    public:
+        
+    void push(int data) {
+       if (s.empty()){
+           s.push(data);
+           mini=data;
+       }else{
+           if(data<mini){
+               s.push(2*data-mini);
+               mini=data;
+           }else{
+               s.push(data);
+           }
+       }
+    }
+
+    void pop() {
+       if(s.empty()){
+           return;
+       }else{
+           if(s.top()>mini){
+               s.pop();
+           }else{
+               mini=2*mini-s.top();
+               s.pop();
+           }
+       }
+    }
+
+    int top() {
+       if(s.empty()){
+           return -1;
+       }else{
+           if (s.top()>mini){
+               return s.top();
+           }else{
+               return mini;
+           }
+       }
+    }
+
+    int getMin() {
+        if(s.empty()) return -1;
+      return mini;
+    }  
+};
+
+--------------------------------------------------------------------------------------------
+// N Stacks In An Array
+#include <bits/stdc++.h> 
+class NStack
+{
+    int* arr;
+    int* top;
+    int* next;
+    int freespot;
+    int n,s;
+
+public:
+    // Initialize your data structure.
+    NStack(int N, int S)
+    {
+        this->n=N;
+        this->s=S;
+        this->freespot=0;
+        this->arr=new int[s];
+        this->top=new int[n];
+        this->next=new int[s];
+        for (int i=0;i<n;i++){
+            top[i]=-1;
+        }
+        for(int i=0;i<s;i++){
+           next[i]=i+1;
+        }
+        next[s-1]=-1;
+    }
+
+    // Pushes 'X' into the Mth stack. Returns true if it gets pushed into the stack, and false otherwise.
+    bool push(int x, int m)
+    {
+        if(freespot==-1){
+            return false;
+        }
+        int index=freespot;
+        this->arr[index]=x;
+        freespot=next[index];
+        next[index]=top[m-1];
+        top[m-1]=index;
+        return true;
+    }
+
+    // Pops top element from Mth Stack. Returns -1 if the stack is empty, otherwise returns the popped element.
+    int pop(int m)
+    {
+        if(top[m-1]==-1){
+            return -1;
+        }
+        int index=top[m-1];
+        top[m-1]=next[index];
+        next[index]=freespot;
+        freespot=index;
+        return arr[index];
+    }
+};
+
+------------------------------------------------------------------------------------------------------
