@@ -282,3 +282,252 @@ public:
         }
     }
 };
+
+--------------------------------------------------------------------------------------------
+// Queue reversal
+
+class Solution
+{
+    public:
+    queue<int> rev(queue<int> q)
+    {
+       stack<int> s;
+       while(!q.empty()){
+           int a=q.front();
+           q.pop();
+           s.push(a);
+       }
+       while(!s.empty()){
+           int a=s.top();
+           q.push(a);
+           s.pop();
+       }
+       return q;
+    }
+};
+
+------------------------------------------------------------------------------------------
+// First negative integer in every window of size k
+
+vector<long long> printFirstNegativeInteger(long long int A[],
+                                             long long int N, long long int K) {
+                                                vector<long long> ans;
+                                                deque<int> q;
+                                                 
+                                                for(int i=0;i<K;i++){
+                                                    if(A[i]<0){
+                                                        q.push_back(i);
+                                                    }
+                                                }
+                                                 
+                                                if(!q.empty()){
+                                                    ans.push_back(A[q.front()]);
+                                                }else{
+                                                    ans.push_back(0);
+                                                }
+                                                 
+                                                for(int i=K;i<N;i++){
+                                                    if(!q.empty() && i-q.front()>=K){
+                                                        q.pop_front();
+                                                    }
+                                                     
+                                                    if(A[i]<0){
+                                                        q.push_back(i);
+                                                    }
+                                                     
+                                                    if(!q.empty()){
+                                                        ans.push_back(A[q.front()]);
+                                                    }else{
+                                                        ans.push_back(0);
+                                                    }
+                                                 
+                                                     
+                                                }
+                                                return ans;
+}
+------------------------------------------------------------------------------------------------
+
+// Reverse first k elements of a queue
+
+queue<int> modifyQueue(queue<int> q, int k) {
+    stack<int> s;
+    
+    for(int i=0;i<k;i++){
+        int a=q.front();
+        q.pop();
+        s.push(a);
+    }
+    
+    while(!s.empty()){
+        int a=s.top();
+        s.pop();
+        q.push(a);
+    }
+    
+    for(int i=0;i<q.size()-k;i++){
+        int a=q.front();
+        q.pop();
+        q.push(a);
+    }
+    return q;
+}
+
+---------------------------------------------------------------------------------------
+// First non repeating character in a stream
+
+class Solution {
+	public:
+		string FirstNonRepeating(string A){
+		   map<char,int> count;
+		   
+		   
+		   string ans="";
+		   queue<int> q;
+		   for(int i=0;i<A.length();i++){
+		       char ch=A[i];
+		       q.push(ch);
+		       count[ch]++;
+		      while(!q.empty()){
+		          if(count[q.front()]>1){
+		              q.pop();
+		          }else{
+		              ans.push_back(q.front());
+		              break;
+		          }
+		      }
+		      if(q.empty()){
+		          ans.push_back('#');
+		      }
+		       
+		   }
+		   return ans;
+		}
+
+};
+------------------------------------------------------------------------------------------------
+// k queues in an array
+
+#include<iostream>
+using namespace std;
+
+class kQueue {
+
+    public:
+        int n;
+        int k;
+        int *front;
+        int *rear;
+        int *arr;
+        int freeSpot;
+        int *next;
+
+    public:
+        kQueue(int n, int k) {
+            this -> n = n;
+            this -> k = k;
+            front = new int[k];
+            rear = new int[k];
+            for(int i=0; i<k; i++) {
+                front[i] = -1;
+                rear[i] = -1;
+            }
+
+            next = new int[n];
+            for(int i=0; i<n; i++) {
+                next[i] = i+1;
+            }
+            next[n-1] = -1;
+            arr = new int[n];
+            freeSpot = 0;
+        }    
+
+        void enqueue(int data, int qn) {
+
+            //overflow
+            if( freeSpot == -1) {
+                cout << "No Empty space is present" << endl;
+                return;
+            }
+
+            //find first free index
+            int index = freeSpot;
+
+            //update freespot
+            freeSpot = next[index];
+
+            //check whther first element
+            if(front[qn-1] == -1){
+                front[qn-1] = index;
+            }
+            else{
+                //link new element to the prev element
+                next[rear[qn-1]] = index;
+            }
+
+            //update next
+            next[index] = -1;
+
+            //update rear
+            rear[qn-1] = index;
+
+            //push element
+            arr[index] = data;
+        }
+
+        int dequeue(int qn) {
+            //underflow 
+            if(front[qn-1] == -1)
+            {
+                cout << "Queue UnderFlow " << endl;
+                return -1;
+            }
+
+            //find index to pop
+            int index = front[qn-1];
+
+            //front ko aage badhao
+            front[qn-1] = next[index];
+
+            //freeSlots ko manage karo
+            next[index] = freeSpot;
+            freeSpot = index;
+            return arr[index];
+        }
+
+};
+
+
+----------------------------------------------------------------------------------------------------
+// sum of mini and maxi
+
+int SumOfKsubArray(int arr[], int N, int k)
+{
+	int sum = 0;
+
+	for (int i = 0; i < N; i++) {
+
+		int length = 0;
+		for (int j = i; j < N; j++) {
+			
+			length++;
+
+			
+			if (length == k) {
+				
+				int maxi = INT_MIN;
+				int mini = INT_MAX;
+
+				for (int m = i; m <= j; m++) {
+					
+					maxi = max(maxi, arr[m]);
+					mini = min(mini, arr[m]);
+				}
+
+				
+				sum += maxi + mini;
+			}
+		}
+	}
+	return sum;
+}
+

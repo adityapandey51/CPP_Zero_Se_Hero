@@ -1718,7 +1718,7 @@ public:
     }
 };
 
-//2.ADD TWO NUMBERS
+----------------------------------------------------------------------------------------------
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -1774,7 +1774,7 @@ public:
     }
 };
 
-//138.COPY LIST WITH RANDOM POINTER
+--------------------------------------------------------------------------------------------------
 /*
 // Definition for a Node.
 class Node {
@@ -1827,7 +1827,7 @@ public:
 //WE CAN ALSO DO IN O(1) S.C
 //WITHOUT USING MAP
 
-///////////////////////////////////////////////////////
+-------------------------------------------------------------------------------------
 //2095.DELETE THE MIDDLE NODE OF LINKED LIST
 
 /**
@@ -1889,6 +1889,7 @@ public:
     }
 };
 
+---------------------------------------------------------------------------------------
 //84.largest rectangle in histogram
 
 class Solution {
@@ -1939,6 +1940,30 @@ public:
             int breadth=n-p-1;
             int area=length*breadth;
             ans=max(ans,area);
+        }
+        return ans;
+    }
+};
+
+-----------------------------------------------------------------------------------------
+1351.Count negetive numbers in a sorted MATRIX
+
+class Solution {
+public:
+    int countNegatives(vector<vector<int>>& grid) {
+        int rows=grid.size();
+        int cols=grid[0].size();
+        int i=rows-1;
+        int j=0;
+        int ans=0;
+
+        while(i>=0 && j<cols){
+            if(grid[i][j]<0){
+                ans += cols-j;
+                i--;
+            }else{
+                j++;
+            }
         }
         return ans;
     }
