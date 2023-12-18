@@ -1968,3 +1968,39 @@ public:
         return ans;
     }
 };
+----------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
+                                  TREES
+
+222.COUNT COMPLETE TREE NODES
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+private:
+    void hello(TreeNode* root,int &count){
+       if(root==NULL){
+           return;
+       }
+        hello(root->left,count);
+        count++;
+        hello(root->right,count);
+    }
+public:
+    int countNodes(TreeNode* root) {
+        int count=0;
+        hello(root,count);
+        return count;
+    }
+};
+
+-------------------------------------------------------------------------------------------------------
