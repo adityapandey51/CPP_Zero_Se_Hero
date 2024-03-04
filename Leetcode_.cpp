@@ -1649,41 +1649,358 @@ public:
     }
 };
 
-//  Given an array of integers arr, return true if and only if it is a valid mountain array.
+//75.SORT COLORS
 
 class Solution {
 public:
-    bool validMountainArray(vector<int>& arr) {
-        int s=0;
-        int e=arr.size()-1;
-        int mid=s+((e-s)/2);
-        int peak=-1;
-        if (arr.size()<3) return false;
-        while(s<e){
-            if(arr[mid]==arr[mid+1]){
-                return false;
-            }else if(arr[mid]>arr[mid+1]){
-                peak=mid;
-                e=mid;
-            }else{
-                s=mid+1;
-            }
-            mid=s+((e-s)/2);
-        } 
-        if(peak==0 || peak==arr.size()-1 || peak ==-1){
-            return false;
-        }  
-        for (int i=0;i<peak;i++){
-            if(arr[i]>=arr[i+1]){
-                return false;
-            }
-        }
-        for (int i=peak;i<arr.size()-1;i++){
-            if(arr[i]<=arr[i+1]){
-                return false;
-            }
-        }
-        return true;
-
+    void sortColors(vector<int>& nums) {
+       int l=0;
+       int r=nums.size()-1;
+       for(int i=0;i<=r;){
+           if (nums[i]==0){
+               swap(nums[i++],nums[l++]);
+           }else if(nums[i]==1){
+               i++;
+           }else{
+               swap(nums[i],nums[r--]);
+           }
+       }
     }
 };
+
+//234.PALINDROME LINKED LIST
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+private:
+    ListNode* reverse(ListNode* slow){
+        ListNode* curr=slow;
+        ListNode* prev=NULL;
+        while(curr){
+            ListNode* next=curr->next;
+            curr->next=prev;
+            prev=curr;
+            curr=next;
+        }
+        return prev;
+    }
+public:
+    bool isPalindrome(ListNode* head) {
+        if(head==NULL) return false;
+        ListNode* slow=head;
+        ListNode* fast=head;
+        while(fast->next!=NULL && fast->next->next!=NULL){
+            slow=slow->next;
+            fast=fast->next->next;
+        }
+        if (fast){
+            slow=slow->next;
+        }
+        slow=reverse(slow);
+
+        while(slow){
+            if (slow->val!=head->val){
+                return false;
+            }
+            slow=slow->next;
+            head=head->next;
+        }
+        return true;
+    }
+};
+
+----------------------------------------------------------------------------------------------
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+private:
+    ListNode* add(ListNode* l1,ListNode* l2){
+        int carry=0;
+        ListNode* ans=new ListNode(0);
+        ListNode* curr=ans;
+        while(l1 && l2){
+            int ans=l1->val+l2->val+carry;
+            int digit=ans%10;
+            curr->next=new ListNode(digit);
+            carry=ans/10;
+            l1=l1->next;
+            l2=l2->next;
+            curr=curr->next;
+        }
+        while(l1){
+            int ans=l1->val+carry;
+            int digit=ans%10;
+            curr->next=new ListNode(digit);
+            carry=ans/10;
+            l1=l1->next;
+            curr=curr->next;
+        }
+        while(l2){
+            int ans=l2->val+carry;
+            int digit=ans%10;
+            curr->next=new ListNode(digit);
+            carry=ans/10;
+            l2=l2->next;
+            curr=curr->next;
+        }
+        if(carry){
+            curr->next=new ListNode(carry);
+        }
+        ListNode* head=ans->next;
+        ans->next=NULL;
+        return head;
+    }
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {  
+        ListNode* ans=add(l1,l2);
+        return ans;
+    }
+};
+
+--------------------------------------------------------------------------------------------------
+/*
+// Definition for a Node.
+class Node {
+public:
+    int val;
+    Node* next;
+    Node* random;
+    
+    Node(int _val) {
+        val = _val;
+        next = NULL;
+        random = NULL;
+    }
+};
+*/
+
+class Solution {
+public:
+    Node* copyRandomList(Node* head) {
+       Node* temp=head;
+       Node* ans=new Node(0);
+       Node* curr=ans;
+       while(temp){
+           curr->next=new Node(temp->val);
+            curr=curr->next;
+            temp=temp->next;
+       } 
+       temp=head;
+       curr=ans->next;
+       map<Node*,Node*> mp;
+
+       while(temp){
+          mp[temp]=curr;
+          temp=temp->next;
+          curr=curr->next; 
+       }
+
+       curr=ans->next;
+       temp=head;
+        while(curr){
+            curr->random=mp[temp->random];
+            curr=curr->next;
+            temp=temp->next;
+        }
+
+       return ans->next;
+    }
+};
+
+//WE CAN ALSO DO IN O(1) S.C
+//WITHOUT USING MAP
+
+-------------------------------------------------------------------------------------
+//2095.DELETE THE MIDDLE NODE OF LINKED LIST
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* deleteMiddle(ListNode* head) {
+        if (head==NULL || head->next==NULL) return nullptr;
+        ListNode* slow=head;
+        ListNode* prev=NULL;
+        ListNode* fast=head;
+        while(fast!=NULL && fast->next!=NULL){
+            prev=slow;
+            slow=slow->next;
+            fast=fast->next->next;
+        }
+        prev->next=slow->next;
+        slow->next=NULL;        
+        return head;
+    }
+};
+
+//20.Valid parenthesis
+
+class Solution {
+public:
+    bool isValid(string s) {
+    stack<char> st;
+    for(int i=0;i<s.length();i++){
+        char ch=s[i];
+        if (ch=='{' || ch=='[' || ch=='('){
+            st.push(ch);
+        } else {
+            if (!st.empty()) {
+              char top = st.top();
+              if (ch == '}' && top == '{') {
+                st.pop();
+              } else if (ch == ']' && top == '[') {
+                st.pop();
+              } else if (ch == ')' && top == '(') {
+                st.pop();
+              } else {
+                return false;
+              }
+            } else {
+              return false;
+            }
+        }
+    }
+    return st.empty();
+    }
+};
+
+---------------------------------------------------------------------------------------
+//84.largest rectangle in histogram
+
+class Solution {
+private:
+    vector<int> nextSmaller(vector<int>& heights){
+        stack<int> s;
+        s.push(-1);
+        vector<int> ans(heights.size());
+        for(int i=heights.size()-1; i>-1; i--){
+            int num=heights[i];
+            while(s.top()>-1 && heights[s.top()]>=num){
+                s.pop();
+            }   
+            ans[i]=s.top();
+            s.push(i);
+        }
+        return ans;
+    }
+     vector<int> beforeSmaller(vector<int>& heights){
+        stack<int> s;
+        s.push(-1);
+        vector<int> ans(heights.size());
+        for(int i=0; i<heights.size();i++){
+            int num=heights[i];
+            while(s.top()>-1 && heights[s.top()]>=num){
+                s.pop();
+            }   
+            ans[i]=s.top();
+            s.push(i);
+        }
+        return ans;
+    }
+public:
+    int largestRectangleArea(vector<int>& heights) {
+        vector<int> next;
+        next=nextSmaller(heights);
+        vector<int> prev;
+        prev=beforeSmaller(heights);
+        int ans=INT_MIN;
+
+        for(int i=0;i<heights.size();i++){
+            int length=heights[i];
+            int n=next[i];
+            int p=prev[i];
+            if (next[i]==-1){
+                n=heights.size();
+            }
+            int breadth=n-p-1;
+            int area=length*breadth;
+            ans=max(ans,area);
+        }
+        return ans;
+    }
+};
+
+-----------------------------------------------------------------------------------------
+1351.Count negetive numbers in a sorted MATRIX
+
+class Solution {
+public:
+    int countNegatives(vector<vector<int>>& grid) {
+        int rows=grid.size();
+        int cols=grid[0].size();
+        int i=rows-1;
+        int j=0;
+        int ans=0;
+
+        while(i>=0 && j<cols){
+            if(grid[i][j]<0){
+                ans += cols-j;
+                i--;
+            }else{
+                j++;
+            }
+        }
+        return ans;
+    }
+};
+----------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
+                                  TREES
+
+222.COUNT COMPLETE TREE NODES
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+private:
+    void hello(TreeNode* root,int &count){
+       if(root==NULL){
+           return;
+       }
+        hello(root->left,count);
+        count++;
+        hello(root->right,count);
+    }
+public:
+    int countNodes(TreeNode* root) {
+        int count=0;
+        hello(root,count);
+        return count;
+    }
+};
+
+-------------------------------------------------------------------------------------------------------
