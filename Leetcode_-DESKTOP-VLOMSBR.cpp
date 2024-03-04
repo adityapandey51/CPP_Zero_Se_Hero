@@ -2004,3 +2004,42 @@ public:
 };
 
 -------------------------------------------------------------------------------------------------------
+
+// 941.//  Given an array of integers arr, return true if and only if it is a valid mountain array.
+
+class Solution {
+public:
+    bool validMountainArray(vector<int>& arr) {
+        int s=0;
+        int e=arr.size()-1;
+        int mid=s+((e-s)/2);
+        int peak=-1;
+        if (arr.size()<3) return false;
+        while(s<e){
+            if(arr[mid]==arr[mid+1]){
+                return false;
+            }else if(arr[mid]>arr[mid+1]){
+                peak=mid;
+                e=mid;
+            }else{
+                s=mid+1;
+            }
+            mid=s+((e-s)/2);
+        } 
+        if(peak==0 || peak==arr.size()-1 || peak ==-1){
+            return false;
+        }  
+        for (int i=0;i<peak;i++){
+            if(arr[i]>=arr[i+1]){
+                return false;
+            }
+        }
+        for (int i=peak;i<arr.size()-1;i++){
+            if(arr[i]<=arr[i+1]){
+                return false;
+            }
+        }
+        return true;
+
+    }
+
