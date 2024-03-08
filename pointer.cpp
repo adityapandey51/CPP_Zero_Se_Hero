@@ -229,3 +229,10 @@ int main() {
 
     return 0;
 }
+
+// ---------------------------------
+//  double pointer
+
+int i=5;
+int *ptr=&i;
+int **p=&ptr; //=>double pointer
