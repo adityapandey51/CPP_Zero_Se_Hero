@@ -131,8 +131,8 @@ vector<int> dfs(int n, vector<vector<int>> &adj){
     return ans;
 }
 
-
-/// cycle detection using bfs
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/// cycle detection using bfs-undirected
  
 bool isCyclicBFS(unordered_map<int, list<int> > &adjList, unordered_map<int, bool> &visited, int Node) {
     unordered_map<int, int> parent;
@@ -188,7 +188,7 @@ string cycleDetection(vector<vector<int> > &edges, int n, int m) {
     return "NO";
 }
 
-//cycle detection using dfs
+//cycle detection using dfs-undirected
 
 bool isCyclicDFS(unordered_map<int, list<int> > &adjList, unordered_map<int, bool> &visited, int Node, int parent) {
     visited[Node] = true;
@@ -286,6 +286,12 @@ string cycleDetection(vector<vector<int> > &edges, int n, int m) {
     return "NO";
 }
 
+//DIRECTED GRAPH CYCLE DETECTION USING BFS
+
+find Topological sort using kahns algorithm and if it is not a valid one
+then it is  cyclic otherwise it is acyclic as topological sort exists only for DAG(Directed acyclic graphs) only.
+
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //TOPOLOGICAL SORT
 //only on directed acyclic graph
@@ -329,7 +335,7 @@ vector<int> topologicalSort(vector<vector<int>> &edges, int v, int e)  {
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
-//KAHN'S ALGORITHM
+//KAHN'S ALGORITHM--BFS
 
 vector<int> topologicalSort(vector<vector<int>> &edges, int v, int e){
     unordered_map<int,list<int>> adj;
@@ -371,3 +377,5 @@ vector<int> topologicalSort(vector<vector<int>> &edges, int v, int e){
    return ans;
 
 }
+
+
