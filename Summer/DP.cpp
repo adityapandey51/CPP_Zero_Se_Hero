@@ -230,3 +230,198 @@ public:
     return digits;
     }
 };
+
+
+8:String to integer
+
+class Solution {
+    private:
+    void trim(string& s) {
+    s.erase(0, s.find_first_not_of(' '));
+    s.erase(s.find_last_not_of(' ') + 1);
+  }
+public:
+    int myAtoi(string s) {
+       trim(s);
+        if (s.empty())
+            return 0;
+
+        const int sign = s[0] == '-' ? -1 : 1;
+        if (s[0] == '+' || s[0] == '-')
+            s = s.substr(1);
+
+        long num = 0;
+
+        for (const char c : s) {
+            if (!isdigit(c))
+                break;
+            num = num * 10 + (c - '0');
+             if (sign * num < INT_MIN)
+                return INT_MIN;
+            if (sign * num > INT_MAX)
+                return INT_MAX;
+        }
+
+    return sign * num;
+  }
+
+};
+
+67: ADD BINARY 
+
+class Solution {
+public:
+    string addBinary(string a, string b) {
+          string ans;
+        int carry = 0;
+        int i = a.length() - 1;
+        int j = b.length() - 1;
+
+        while (i >= 0 || j >= 0 || carry) {
+             if (i >= 0)
+                carry += a[i--] - '0';
+            if (j >= 0)
+                carry += b[j--] - '0';
+            ans += carry % 2 + '0';
+            carry /= 2;
+        }
+
+        reverse(ans.begin(), ans.end());
+        return ans;
+    }
+};
+
+//103:Zig zag traversal
+
+class Solution {
+public:
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+        vector<vector<int>> result;
+        if(root==NULL){
+            return result;
+        }
+        queue<TreeNode*> q;
+        q.push(root);
+        bool leftToRight=true;
+        
+        while(!q.empty()){
+            
+            int size=q.size();
+            vector<int> ans(size);
+            for(int i=0;i<size;i++){
+                TreeNode* frontNode=q.front();
+                q.pop();
+                
+                int index=leftToRight?i:size-i-1;
+                ans[index]=frontNode->val;
+                
+                if(frontNode->left){
+                    q.push(frontNode->left);
+                }
+                if(frontNode->right){
+                    q.push(frontNode->right);
+                }
+                
+            }
+            
+            leftToRight=!leftToRight;
+            
+            
+            result.push_back(ans);
+        }
+        return result;
+    }
+};
+
+136:SINGLE NUMBER
+
+class Solution {
+public:
+    int singleNumber(vector<int>& nums) {
+        int ans=0;
+        for(int i=0; i<nums.size();i++){
+            ans=ans^nums[i];
+        }
+        return ans;
+    }
+};
+
+105: Build from inorder and preorder
+
+class Solution {
+    private:
+    void createMapping(vector<int> in, int n, map<int,int> &nodeToIndex){
+        for(int i=0; i<n; i++){
+            nodeToIndex[in[i]] = i;
+        }
+    }
+    TreeNode* constructTree(vector<int> in, vector<int> pre, int inOrderStart, int inOrderEnd, int &index, map<int,int> &nodeToIndex, int size){
+        if(index >= size || inOrderStart > inOrderEnd){
+            return NULL;
+        }
+        int temp = pre[index++];
+        TreeNode* root = new TreeNode(temp);
+        int pos = nodeToIndex[temp];
+        
+        root->left = constructTree(in, pre, inOrderStart, pos-1, index, nodeToIndex, size);
+        root->right = constructTree(in, pre, pos+1, inOrderEnd, index, nodeToIndex, size);
+        
+        return root;
+    }
+public:
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        map<int,int> nodeToIndex;
+        createMapping(inorder, inorder.size(), nodeToIndex);
+        
+        int index = 0;
+       
+        TreeNode* ans = constructTree(inorder, preorder, 0, inorder.size()-1, index, nodeToIndex, inorder.size());
+        return ans;
+    }
+};
+
+110:Balanced binary tree 
+
+class Solution {
+
+private:
+    pair<int,bool> solve(TreeNode* root){
+        if(root==NULL){
+            return {0,true};
+        }
+
+        pair<int,bool> left=solve(root->left);
+        pair<int,bool> right=solve(root->right);
+
+        pair<int,bool> ans;
+        ans.first=max(left.first,right.first)+1;
+        ans.second=(abs(left.first-right.first)<=1) && left.second && right.second;
+        return ans;
+    }
+public:
+    bool isBalanced(TreeNode* root) {
+       pair<int,bool> ans;
+
+       ans=solve(root);
+
+       return ans.second;
+
+
+    }
+};
+
+108:Convert sorted array into BST 
+class Solution {
+
+private:
+TreeNode* build(const vector<int>& nums, int l, int r) {
+    if (l > r)
+      return nullptr;
+    const int m = (l + r) / 2;
+    return new TreeNode(nums[m], build(nums, l, m - 1), build(nums, m + 1, r));
+  }
+public:
+    TreeNode* sortedArrayToBST(vector<int>& nums) {
+         return build(nums, 0, nums.size() - 1);
+    }
+};
