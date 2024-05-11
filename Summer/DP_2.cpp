@@ -25,3 +25,255 @@ int maxProfit(vector<int> &values, vector<int> &weights, int n, int w)
 }
 
 
+104:Maximum depth of binary tree 
+
+class Solution {
+public:
+    int maxDepth(TreeNode* root) {
+        if(root==NULL){
+            return 0;
+        }
+
+        int left=maxDepth(root->left);
+        int right=maxDepth(root->right);
+
+        return max(left,right)+1;
+    }
+};
+
+86:Partition List 
+
+class Solution {
+public:
+    ListNode* partition(ListNode* head, int x) {
+         ListNode beforeHead(0);
+    ListNode afterHead(0);
+    ListNode* before = &beforeHead;
+    ListNode* after = &afterHead;
+
+    for (; head; head = head->next)
+      if (head->val < x) {
+        before->next = head;
+        before = head;
+      } else {
+        after->next = head;
+        after = head;
+      }
+
+    after->next = nullptr;
+    before->next = afterHead.next;
+
+    return beforeHead.next;
+    }
+};
+
+111:Minimum depth of a binarytree 
+class Solution {
+public:
+    int minDepth(TreeNode* root) {
+        if(root==NULL){
+            return 0;
+        }else if(root->left!=NULL && root->right==NULL){
+            return minDepth(root->left)+1;
+        }else if(root->left==NULL && root->right!=NULL){
+            return minDepth(root->right)+1;
+        }else{
+            return min(minDepth(root->left),minDepth(root->right))+1;
+        }
+
+    }
+};
+
+506:Relative ranks
+
+class Solution {
+public:
+    vector<string> findRelativeRanks(vector<int>& score) {
+        set<pair<int,int>> s;
+        for(int i=0;i<score.size();i++){
+            s.insert(make_pair(score[i],i));
+        }
+        
+        int n=score.size();
+        vector<string> ans(n);
+        while(!s.empty()){
+            auto top=*(s.begin());
+            s.erase(top);
+            string pos=to_string(n);
+            if(n==3){
+                pos="Bronze Medal";
+            }else if(n==2){
+                pos="Silver Medal";
+            }else if(n==1){
+                pos="Gold Medal";
+            }
+            ans[top.second]=pos;
+            n--;
+        }
+        return ans;
+    }
+};
+
+203:Remove Linked List elements
+
+class Solution {
+public:
+    ListNode* removeElements(ListNode* head, int val) {
+        ListNode ans(0);
+        ListNode* after=&ans;
+
+        for(;head;head=head->next){
+            if(head->val!=val){
+                after->next=head;
+                after=after->next;    
+            }else if(head->val==val){
+                after->next=head->next;
+            }
+        }
+        return ans.next;
+    }
+};
+
+215:Kth largest element in an array
+
+class Solution {
+public:
+    int findKthLargest(vector<int>& nums, int k) {
+        priority_queue<int> q;
+
+        for(int i=0;i<nums.size();i++){
+            q.push(nums[i]);
+        }
+
+        for(int i=0;i<k-1;i++){
+            q.pop();
+        }
+        
+
+        return (q.top());
+    }
+};
+
+81:Search in a rotated sorted array 2
+
+class Solution {
+
+private: 
+    int pivot(vector<int> nums){
+        int i=0;
+        while(i+1<=nums.size()-1 && nums[i]<=nums[i+1]){
+            i++;
+        }
+        return i;
+    }
+
+    bool BinarySearch(vector<int>& nums,int s, int e,int target){
+        int mid=s+(e-s)/2;
+        while(s<=e){
+            if(nums[mid]>target){
+                e=mid-1;
+            }else if(nums[mid]<target){
+                s=mid+1;
+            }
+            else{
+                return true;
+            }
+            mid=s+(e-s)/2;
+        }
+        return false;
+    }
+public:
+    bool search(vector<int>& nums, int target) {
+        int p=pivot(nums);
+
+        if(p+1<=nums.size()-1 && target>= nums[p+1] && target<=nums[nums.size()-1]){
+            return BinarySearch(nums,p+1,nums.size()-1,target);
+        }else{
+            return BinarySearch(nums,0,p,target);
+        }
+
+    }
+};
+
+303:RangeSum query-immutable
+
+class NumArray {
+        vector<int> p;
+public:
+    NumArray(vector<int>& nums) {
+        p.resize(nums.size()+1);
+        p[0]=0;
+        for(int i=0;i<nums.size();i++){
+            p[i+1]=p[i]+nums[i];
+        }
+    }
+    
+    int sumRange(int left, int right) {
+        return (p[right+1]-p[left]);
+    }
+};
+
+
+169.Majority element
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        unordered_map<int,int> mp;
+        int ans;
+         for(int i=0;i<nums.size();i++){
+            mp[nums[i]]++;
+            if(mp[nums[i]]>nums.size()/2){
+                ans=nums[i];
+            }
+        }
+    return ans;
+    }
+};
+
+229:Majority element 2
+
+class Solution {
+public:
+    vector<int> majorityElement(vector<int>& nums) {
+         unordered_map<int,int> mp;
+         int n=int(nums.size()/3)+1;
+
+        vector<int> ans;
+         for(int i=0;i<nums.size();i++){
+            mp[nums[i]]++;
+            if(mp[nums[i]]==n){
+                ans.push_back(nums[i]);
+            }
+        }
+    return ans;
+    }
+};
+
+31:Next Permutation
+
+class Solution {
+public:
+    void nextPermutation(vector<int>& nums) {
+       int index=-1;
+       for(int i=nums.size()-2;i>=0;i--){
+        if(nums[i]<nums[i+1]){
+            index=i;
+            break;
+        }
+       }
+
+       if(index==-1){
+        reverse(nums.begin(),nums.end());
+        return;
+       }
+
+       for(int i=nums.size()-1;i>index;i--){
+        if(nums[i]>nums[index]){
+            swap(nums[i],nums[index]);
+            break;
+        }
+       }
+
+       reverse(nums.begin()+index+1,nums.end());
+    }
+};
