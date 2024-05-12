@@ -277,3 +277,30 @@ public:
        reverse(nums.begin()+index+1,nums.end());
     }
 };
+
+1838:Frequency of the most frequent element
+
+class Solution {
+public:
+    int maxFrequency(vector<int>& nums, int k) {
+        int l=0;
+        int r=0;
+        sort(nums.begin(),nums.end());
+
+        long sum=0;
+        int ans=0;
+
+        while(l<nums.size() && r<nums.size()){
+            sum=sum+nums[r];
+
+            while(static_cast<long>(nums[r])*(r-l+1) > sum+k){
+                sum=sum-nums[l];
+                l++;
+            }
+
+            ans=max(ans,r-l+1);
+            r++;
+        }
+        return ans;
+    }
+};
