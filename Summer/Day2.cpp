@@ -182,9 +182,7 @@ class Solution{
             solve(x-1,y,m,n,visited,ans,path+'U');
         }
         
-        visited[x][y]=0;
-        
-        
+        visited[x][y]=0;      
         
         
     }

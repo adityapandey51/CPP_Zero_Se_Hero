@@ -304,3 +304,90 @@ public:
         return ans;
     }
 };
+
+56:Merge Intervals
+
+class Solution {
+public:
+    vector<vector<int>> merge(vector<vector<int>>& intervals) {
+        sort(intervals.begin(),intervals.end());
+        vector<vector<int>> ans;
+
+        for(int i=0;i<intervals.size();i++){
+            if(ans.empty() || intervals[i][0]>ans.back()[1]){
+                ans.push_back(intervals[i]);
+            }else{
+                ans.back()[1]=max(ans.back()[1],intervals[i][1]);
+            }
+        }
+        return ans;
+    }
+};
+
+287:Find the duplicate number
+
+class Solution {
+public:
+    int findDuplicate(vector<int>& nums) {
+        unordered_map<int,int> mp;
+        int ans;
+        for(int i=0;i<nums.size();i++){
+            mp[nums[i]]++;
+            if(mp[nums[i]]==2){
+                ans=nums[i];
+                break;
+            }
+        }
+        return ans;
+        
+    }
+};
+
+118:PasCal triangle
+
+class Solution {
+private:
+    vector<int> getRow(int row){
+        vector<int> ans;
+        long long temp=1;
+
+        ans.push_back(temp);
+        for(int i=1;i<row;i++){
+            temp=temp*(row-i);
+            temp=temp/i;
+            ans.push_back(temp);
+        }
+        return ans;
+    }
+public:
+    vector<vector<int>> generate(int numRows) {
+        vector<vector<int>> ans;
+
+        for(int i=1;i<=numRows;i++){
+            ans.push_back(getRow(i));
+        }
+        return ans;
+    }
+};
+
+62:Unique paths
+
+class Solution {
+    private:
+     int countPaths(int i,int j,int n,int m,vector<vector<int>> &dp)
+    {
+        if(i==(n-1)&&j==(m-1)) return 1;
+        if(i>=n||j>=m) return 0;
+        if(dp[i][j]!=-1) return dp[i][j];
+     else return dp[i][j]=countPaths(i+1,j,n,m,dp)+countPaths(i,j+1,n,m,dp);
+        
+    }
+public:
+    int uniquePaths(int m, int n) {
+        vector<vector<int>> dp(m+1,vector<int>(n+1,-1));
+       int num=countPaths(0,0,m,n,dp);
+        if(m==1&&n==1)
+            return num;
+        return dp[0][0];
+    }
+};
