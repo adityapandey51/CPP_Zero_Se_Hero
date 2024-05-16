@@ -409,3 +409,20 @@ public:
     return lastIndex - i;
     }
 };
+
+101:Symmetric tree
+class Solution {
+
+    private:
+    bool solve(TreeNode* a,TreeNode* b){
+        if(!a || !b){
+            return a == b;
+        }
+
+        return a->val == b->val && solve(a->left,b->right) && solve(a->right,b->left);
+    }
+public:
+    bool isSymmetric(TreeNode* root) {
+        return solve(root,root);
+    }
+};
