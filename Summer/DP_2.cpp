@@ -426,3 +426,30 @@ public:
         return solve(root,root);
     }
 };
+
+92:Reverse Linked list 
+
+class Solution {
+public:
+    ListNode* reverseBetween(ListNode* head, int left, int right) {
+         if (!head || left == right)
+      return head;
+
+    ListNode dummy(0, head);
+    ListNode* prev = &dummy;
+
+    for (int i = 0; i < left - 1; ++i)
+      prev = prev->next; 
+
+    ListNode* tail = prev->next; 
+
+    for (int i = 0; i < right - left; ++i) {
+      ListNode* cache = tail->next;
+      tail->next = cache->next;
+      cache->next = prev->next;
+      prev->next = cache;
+    }
+
+    return dummy.next;
+    }
+};
