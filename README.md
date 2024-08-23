@@ -8,6 +8,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 ## String
 |  |
 | ------- |
+| [0520-detect-capital](https://github.com/adityapandey51/CPP_Zero_Se_Hero/tree/master/0520-detect-capital) |
 | [1777-determine-if-two-strings-are-close](https://github.com/adityapandey51/CPP_Zero_Se_Hero/tree/master/1777-determine-if-two-strings-are-close) |
 | [1823-determine-if-string-halves-are-alike](https://github.com/adityapandey51/CPP_Zero_Se_Hero/tree/master/1823-determine-if-string-halves-are-alike) |
 ## Sorting
