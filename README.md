@@ -25,9 +25,14 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 ## Array
 |  |
 | ------- |
+| [0152-maximum-product-subarray](https://github.com/adityapandey51/CPP_Zero_Se_Hero/tree/master/0152-maximum-product-subarray) |
 | [0981-delete-columns-to-make-sorted](https://github.com/adityapandey51/CPP_Zero_Se_Hero/tree/master/0981-delete-columns-to-make-sorted) |
 ## Backtracking
 |  |
 | ------- |
 | [0093-restore-ip-addresses](https://github.com/adityapandey51/CPP_Zero_Se_Hero/tree/master/0093-restore-ip-addresses) |
+## Dynamic Programming
+|  |
+| ------- |
+| [0152-maximum-product-subarray](https://github.com/adityapandey51/CPP_Zero_Se_Hero/tree/master/0152-maximum-product-subarray) |
 <!---LeetCode Topics End-->
