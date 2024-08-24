@@ -10,6 +10,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [0093-restore-ip-addresses](https://github.com/adityapandey51/CPP_Zero_Se_Hero/tree/master/0093-restore-ip-addresses) |
+| [0459-repeated-substring-pattern](https://github.com/adityapandey51/CPP_Zero_Se_Hero/tree/master/0459-repeated-substring-pattern) |
 | [0472-concatenated-words](https://github.com/adityapandey51/CPP_Zero_Se_Hero/tree/master/0472-concatenated-words) |
 | [0520-detect-capital](https://github.com/adityapandey51/CPP_Zero_Se_Hero/tree/master/0520-detect-capital) |
 | [0889-buddy-strings](https://github.com/adityapandey51/CPP_Zero_Se_Hero/tree/master/0889-buddy-strings) |
@@ -50,4 +51,8 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [0472-concatenated-words](https://github.com/adityapandey51/CPP_Zero_Se_Hero/tree/master/0472-concatenated-words) |
+## String Matching
+|  |
+| ------- |
+| [0459-repeated-substring-pattern](https://github.com/adityapandey51/CPP_Zero_Se_Hero/tree/master/0459-repeated-substring-pattern) |
 <!---LeetCode Topics End-->
