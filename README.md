@@ -38,6 +38,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0472-concatenated-words](https://github.com/adityapandey51/CPP_Zero_Se_Hero/tree/master/0472-concatenated-words) |
 | [0981-delete-columns-to-make-sorted](https://github.com/adityapandey51/CPP_Zero_Se_Hero/tree/master/0981-delete-columns-to-make-sorted) |
 | [1677-matrix-diagonal-sum](https://github.com/adityapandey51/CPP_Zero_Se_Hero/tree/master/1677-matrix-diagonal-sum) |
+| [2132-convert-1d-array-into-2d-array](https://github.com/adityapandey51/CPP_Zero_Se_Hero/tree/master/2132-convert-1d-array-into-2d-array) |
 | [2360-substring-with-largest-variance](https://github.com/adityapandey51/CPP_Zero_Se_Hero/tree/master/2360-substring-with-largest-variance) |
 ## Backtracking
 |  |
@@ -70,4 +71,9 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [1677-matrix-diagonal-sum](https://github.com/adityapandey51/CPP_Zero_Se_Hero/tree/master/1677-matrix-diagonal-sum) |
+| [2132-convert-1d-array-into-2d-array](https://github.com/adityapandey51/CPP_Zero_Se_Hero/tree/master/2132-convert-1d-array-into-2d-array) |
+## Simulation
+|  |
+| ------- |
+| [2132-convert-1d-array-into-2d-array](https://github.com/adityapandey51/CPP_Zero_Se_Hero/tree/master/2132-convert-1d-array-into-2d-array) |
 <!---LeetCode Topics End-->
