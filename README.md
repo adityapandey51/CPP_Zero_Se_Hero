@@ -37,6 +37,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0217-contains-duplicate](https://github.com/adityapandey51/CPP_Zero_Se_Hero/tree/master/0217-contains-duplicate) |
 | [0472-concatenated-words](https://github.com/adityapandey51/CPP_Zero_Se_Hero/tree/master/0472-concatenated-words) |
 | [0981-delete-columns-to-make-sorted](https://github.com/adityapandey51/CPP_Zero_Se_Hero/tree/master/0981-delete-columns-to-make-sorted) |
+| [1677-matrix-diagonal-sum](https://github.com/adityapandey51/CPP_Zero_Se_Hero/tree/master/1677-matrix-diagonal-sum) |
 | [2360-substring-with-largest-variance](https://github.com/adityapandey51/CPP_Zero_Se_Hero/tree/master/2360-substring-with-largest-variance) |
 ## Backtracking
 |  |
@@ -65,4 +66,8 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [0168-excel-sheet-column-title](https://github.com/adityapandey51/CPP_Zero_Se_Hero/tree/master/0168-excel-sheet-column-title) |
+## Matrix
+|  |
+| ------- |
+| [1677-matrix-diagonal-sum](https://github.com/adityapandey51/CPP_Zero_Se_Hero/tree/master/1677-matrix-diagonal-sum) |
 <!---LeetCode Topics End-->
