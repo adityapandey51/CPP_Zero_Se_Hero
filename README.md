@@ -40,6 +40,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [1677-matrix-diagonal-sum](https://github.com/adityapandey51/CPP_Zero_Se_Hero/tree/master/1677-matrix-diagonal-sum) |
 | [2132-convert-1d-array-into-2d-array](https://github.com/adityapandey51/CPP_Zero_Se_Hero/tree/master/2132-convert-1d-array-into-2d-array) |
 | [2360-substring-with-largest-variance](https://github.com/adityapandey51/CPP_Zero_Se_Hero/tree/master/2360-substring-with-largest-variance) |
+| [2621-find-xor-beauty-of-array](https://github.com/adityapandey51/CPP_Zero_Se_Hero/tree/master/2621-find-xor-beauty-of-array) |
 ## Backtracking
 |  |
 | ------- |
@@ -67,6 +68,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [0168-excel-sheet-column-title](https://github.com/adityapandey51/CPP_Zero_Se_Hero/tree/master/0168-excel-sheet-column-title) |
+| [2621-find-xor-beauty-of-array](https://github.com/adityapandey51/CPP_Zero_Se_Hero/tree/master/2621-find-xor-beauty-of-array) |
 ## Matrix
 |  |
 | ------- |
@@ -76,4 +78,8 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [2132-convert-1d-array-into-2d-array](https://github.com/adityapandey51/CPP_Zero_Se_Hero/tree/master/2132-convert-1d-array-into-2d-array) |
+## Bit Manipulation
+|  |
+| ------- |
+| [2621-find-xor-beauty-of-array](https://github.com/adityapandey51/CPP_Zero_Se_Hero/tree/master/2621-find-xor-beauty-of-array) |
 <!---LeetCode Topics End-->
